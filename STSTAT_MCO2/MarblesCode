@@ -1,0 +1,152 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+import umontreal.iro.lecuyer.probdist.BinomialDist;
+import umontreal.iro.lecuyer.probdist.HypergeometricDist;
+import umontreal.iro.lecuyer.probdist.NegativeBinomialDist;
+import umontreal.iro.lecuyer.probdistmulti.MultinomialDist;
+
+public class driver {
+	
+	public static void main(String[] args)
+	{
+		int k=0,n=0;
+		int kType=0;
+		int nColors=0;
+		int success=0;
+		int trials = 0;
+		int size=0;
+		String[] colors = {"silver","gold","bronze"};
+		ArrayList<String> successColors = new ArrayList();
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter number of Experiments");
+		while(!(k>=10 && k<=100000))
+		{
+			k= sc.nextInt();
+		}
+		System.out.println("Enter type of Experiment");
+		System.out.println("1- Binomial\n2- Negative Binomial\n3- Hypergeometric\n4- Multinomial");
+		while(!(kType>0 && kType<=4))
+		{
+			kType= sc.nextInt();
+		}
+		System.out.println("Enter number of Trials");
+		while(!(n>0))
+		{
+			n= sc.nextInt();
+		}
+		System.out.println("Enter number of Marble Colors (max 3)");
+		while(!(nColors>0 && nColors<=3))
+		{
+			nColors= sc.nextInt();
+		}				
+		
+		if(kType == 1)
+		{
+			System.out.println("determine how many colors are considered a success (max 3)");
+			while(!(success<=nColors && success > 0))
+			{
+				success= sc.nextInt();
+			}
+			System.out.println("determine color that is considered a success");
+			for(int i =1; i<=nColors;i++)
+			{
+				System.out.println(i+ " - " + colors[i-1]);
+			}
+			int choiceCounter = success;
+			
+			while(choiceCounter !=0)
+			{
+				int choice= sc.nextInt();
+				if(choice >0 &&choice <=nColors)
+				{
+					successColors.add(colors[choice-1]);
+					choiceCounter--;
+				}else
+					System.out.println("invalid choice");
+			}
+
+			float m1=0;
+			float m2=0;
+			float m3=0;
+
+			float total=0;
+			for(int i = 0;i<nColors;i++)
+			{
+				System.out.println("How many " + colors[i] +" marbles are there?");		
+				if(i==0)
+				{
+					while(m1==0)
+					{
+						m1 = sc.nextFloat();
+					}
+					total += m1;
+				}
+				else if(i==1)
+				{
+					while(m2==0)
+					{
+						m2 = sc.nextFloat();
+					}
+					total += m2;
+				}
+				else if(i==2)
+				{
+					while(m3==0)
+					{
+						m3 = sc.nextFloat();
+					}
+					total += m3;
+				}
+			}
+			float prob1 = m1/total; //silver
+			float prob2 = m2/total; //gold
+			float prob3 = m3/total; //bronze
+			
+			choiceCounter = success;
+			float probability =0;
+			while(choiceCounter !=0)
+			{
+				if(successColors.get(choiceCounter-1).equals("silver"))
+				{
+					probability += prob1;
+					choiceCounter--;
+				}
+				else if(successColors.get(choiceCounter-1).equals("gold"))
+				{
+					probability += prob2;
+					choiceCounter--;
+					
+				}
+				else if(successColors.get(choiceCounter-1).equals("bronze"))
+				{
+					probability += prob3;
+					choiceCounter--;
+					
+				}
+				
+			}
+			System.out.println("probability: " + probability);
+			BinomialDist binomial = new BinomialDist(n, probability); // parameters: n, p
+			System.out.println("Binomial Distribution: " + binomial.prob(success)); // parameter: x
+
+			
+			
+		}else if(kType == 2)
+		{
+			NegativeBinomialDist negativeBinomial = new NegativeBinomialDist(n,1); // parameters: r, p
+			System.out.println("Negative Binomial Distribution: " + negativeBinomial.prob(success)); // parameter: x
+		}else if (kType == 3)
+		{
+			HypergeometricDist hypergeom = new HypergeometricDist(5, 10, 2); // parameters: k, N, n
+			System.out.println("Hypergeometric Distribution: " + hypergeom.prob(1)); // parameter: x
+		}else if (kType == 4)
+		{
+			double[] p = {0.25, 0.25, 0.25, 0.25};
+			int[] nMult = {1, 1, 1, 2};
+			MultinomialDist multinomial = new MultinomialDist(5, p); // parameters: n, p[]
+			System.out.println("Multinomial Distribution: " + multinomial.prob(nMult)); // parameter: n[]
+		}
+
+	}
+}
