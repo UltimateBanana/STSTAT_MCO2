@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import umontreal.iro.lecuyer.probdist.BinomialDist;
 import umontreal.iro.lecuyer.probdist.HypergeometricDist;
@@ -12,11 +13,11 @@ public class driver {
 		int k=0,n=0;
 		int kType=0;
 		int nColors=0;
-		int success=0;
+		int success=-1;
 		int trials = 0;
 		int size=0;
 		String[] colors = {"silver","gold","bronze"};
-		ArrayList<String> successColors = new ArrayList();
+		int successColor=-1;
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Enter number of Experiments");
@@ -43,93 +44,177 @@ public class driver {
 		
 		if(kType == 1)
 		{
-			System.out.println("determine how many colors are considered a success (max 3)");
+			/*System.out.println("determine how many colors are considered a success (max 3)");
 			while(!(success<=nColors && success > 0))
 			{
 				success= sc.nextInt();
-			}
+			}*/
 			System.out.println("determine color that is considered a success");
 			for(int i =1; i<=nColors;i++)
 			{
 				System.out.println(i+ " - " + colors[i-1]);
 			}
-			int choiceCounter = success;
-			
-			while(choiceCounter !=0)
+	
+			int choice = 0;
+			while(choice<1 || choice>nColors)
 			{
-				int choice= sc.nextInt();
+				choice= sc.nextInt();
 				if(choice >0 &&choice <=nColors)
 				{
-					successColors.add(colors[choice-1]);
-					choiceCounter--;
+					successColor = choice-1;
+					System.out.println("success color: " + colors[successColor]);
 				}else
 					System.out.println("invalid choice");
 			}
-
+			
+			System.out.println("How many " + colors[successColor] + " do you need to pick in order for it to be a success?");
+			while(!(success>=0))
+			{
+				success = sc.nextInt();
+			}
 			float m1=0;
 			float m2=0;
 			float m3=0;
 
 			float total=0;
-			for(int i = 0;i<nColors;i++)
-			{
-				System.out.println("How many " + colors[i] +" marbles are there?");		
-				if(i==0)
+			
+				for(int i = 0;i<nColors;i++)
 				{
-					while(m1==0)
+					System.out.println("How many " + colors[i] +" marbles are there?");		
+					if(i==0)
 					{
-						m1 = sc.nextFloat();
+						while(m1==0)
+						{
+							m1 = sc.nextFloat();
+						}
+						total += m1;
 					}
-					total += m1;
-				}
-				else if(i==1)
-				{
-					while(m2==0)
+					else if(i==1)
 					{
-						m2 = sc.nextFloat();
+						while(m2==0)
+						{
+							m2 = sc.nextFloat();
+						}
+						total += m2;
 					}
-					total += m2;
-				}
-				else if(i==2)
-				{
-					while(m3==0)
+					else if(i==2)
 					{
-						m3 = sc.nextFloat();
+						while(m3==0)
+						{
+							m3 = sc.nextFloat();
+						}
+						total += m3;
 					}
-					total += m3;
 				}
-			}
 			float prob1 = m1/total; //silver
 			float prob2 = m2/total; //gold
 			float prob3 = m3/total; //bronze
 			
-			choiceCounter = success;
 			float probability =0;
-			while(choiceCounter !=0)
+			
+			if(successColor == 0)
 			{
-				if(successColors.get(choiceCounter-1).equals("silver"))
-				{
-					probability += prob1;
-					choiceCounter--;
-				}
-				else if(successColors.get(choiceCounter-1).equals("gold"))
-				{
-					probability += prob2;
-					choiceCounter--;
-					
-				}
-				else if(successColors.get(choiceCounter-1).equals("bronze"))
-				{
-					probability += prob3;
-					choiceCounter--;
-					
-				}
-				
+				probability = prob1;
+			}else if(successColor == 1)
+			{
+				probability = prob2;
+			}else if(successColor == 2)
+			{
+				probability = prob3;
 			}
+			
+			System.out.println("Ideal Outcome: ");
 			System.out.println("probability: " + probability);
 			BinomialDist binomial = new BinomialDist(n, probability); // parameters: n, p
 			System.out.println("Binomial Distribution: " + binomial.prob(success)); // parameter: x
+			
+			
+			System.out.println("Actual Outcome: ");
+			int totalInt = Math.round(total);
+			int m1Int = Math.round(m1);
+			int m2Int = Math.round(m2);
+			int m3Int = Math.round(m3);
+			ArrayList<String> marbles = new ArrayList();
+			
+			for(int i=0; i<m1;i++){
+				marbles.add("silver");
+			}
+			for(int i=0; i<m2;i++){
+				marbles.add("gold");
+			}
+			for(int i=0; i<m1;i++){
+				marbles.add("bronze");
+			}
+			
+			int successCounter=0;
+			int failCounter = 0;
+			int silverCounter=0;
+			int goldCounter=0;
+			int bronzeCounter=0;
+			
+			for(int i=0; i<k; i++)//# of experiments
+			{
+				Collections.shuffle(marbles); // shuffle marbles
+				for(int j=0;j<n;j++)//number of trials
+				{
+					if(marbles.get(j).equals("silver"))
+					{
+						silverCounter++;
+					}else if(marbles.get(j).equals("gold"))
+					{
+						goldCounter++;
+					}else if(marbles.get(j).equals("bronze"))
+					{
+						bronzeCounter++;
+					}
+					
+					System.out.println((j+1) + " - " + marbles.get(j));
+				}
+				System.out.println("# of silver picked: " + silverCounter);
+				System.out.println("# of gold picked: " + goldCounter);
+				System.out.println("# of bronze picked: " + bronzeCounter);
+				if(successColor == 0)
+				{
+					if(silverCounter ==success)
+					{
+						successCounter++;
+						System.out.println("Experiment #" +(i+1)+ " success");
+					}else{
+						failCounter++;
+						System.out.println("Experiment #" +(i+1)+ " fail");
+					}
+				}else if(successColor == 1)
+				{
+					if(goldCounter ==success)
+					{
+						successCounter++;
+						System.out.println("Experiment #" +(i+1)+ " success");
+					}else{
+						failCounter++;
+						System.out.println("Experiment #" +(i+1)+ " fail");
+					}
+				}
+				else if(successColor == 2)
+				{
+					if(bronzeCounter ==success)
+					{
+						successCounter++;
+						System.out.println("Experiment #" +(i+1)+ " success");
+					}else
+					{
+						failCounter++;
+						System.out.println("Experiment #" +(i+1)+ " fail");
+					}
+				}
+				
 
+				System.out.println("total number of success: " + successCounter);
+				System.out.println("total number of fail: " + failCounter);
+				silverCounter=0;
+				goldCounter=0;
+				bronzeCounter=0;
+			}
+			
 			
 			
 		}else if(kType == 2)
@@ -147,6 +232,10 @@ public class driver {
 			MultinomialDist multinomial = new MultinomialDist(5, p); // parameters: n, p[]
 			System.out.println("Multinomial Distribution: " + multinomial.prob(nMult)); // parameter: n[]
 		}
-
+		
+		
+		
+		
+		
 	}
 }
