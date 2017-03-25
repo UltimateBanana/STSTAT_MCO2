@@ -899,22 +899,22 @@ public class GUI {
 					  
 					  if(radioButton_15.isSelected())
 					  {
-						  float m = Float.parseFloat(textField_8.getText());
-						  float n = Float.parseFloat(textField_9.getText()) + Float.parseFloat(textField_10.getText());
+						  float m = numGold;
+						  float n = numSilver + numBronze;
 						  
 						  controller.getHypergeometric(nn, m, n, k, radioButton_15.getText());
 					  }
 					  else if(radioButton_16.isSelected())
 					  {
-						  float m = Float.parseFloat(textField_9.getText());
-						  float n = Float.parseFloat(textField_8.getText()) + Float.parseFloat(textField_10.getText());
+						  float m = numSilver;
+						  float n = numGold + numBronze;
 						  
 						  controller.getHypergeometric(nn, m, n, k, radioButton_16.getText());
 					  }
 					  else if(radioButton_17.isSelected())
 					  {
-						  float m = Float.parseFloat(textField_10.getText());
-						  float n = Float.parseFloat(textField_9.getText()) + Float.parseFloat(textField_8.getText());
+						  float m = numBronze;
+						  float n = numGold + numSilver;
 						  
 						  controller.getHypergeometric(nn, m, n, k, radioButton_16.getText());
 					  }
