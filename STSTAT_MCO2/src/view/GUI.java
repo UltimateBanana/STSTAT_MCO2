@@ -223,6 +223,7 @@ public class GUI {
 	 * Create the application.
 	 */
 	public GUI() {
+		controller = new Controller();
 		initialize();
 	}
 
@@ -304,22 +305,22 @@ public class GUI {
 		
 		rdbtnBiDiamonds = new JRadioButton("Diamonds");
 		rdbtnBiDiamonds.setBackground(Color.WHITE);
-		rdbtnBiDiamonds.setBounds(10, 41, 71, 23);
+		rdbtnBiDiamonds.setBounds(10, 41, 92, 23);
 		panelBiCards.add(rdbtnBiDiamonds);
 		
 		rdbtnBiSpades = new JRadioButton("Spades");
 		rdbtnBiSpades.setBackground(Color.WHITE);
-		rdbtnBiSpades.setBounds(10, 69, 61, 23);
+		rdbtnBiSpades.setBounds(10, 69, 92, 23);
 		panelBiCards.add(rdbtnBiSpades);
 		
 		rdbtnBiHearts = new JRadioButton("Hearts");
 		rdbtnBiHearts.setBackground(Color.WHITE);
-		rdbtnBiHearts.setBounds(127, 41, 57, 23);
+		rdbtnBiHearts.setBounds(127, 41, 76, 23);
 		panelBiCards.add(rdbtnBiHearts);
 		
 		rdbtnBiClubs = new JRadioButton("Clubs");
 		rdbtnBiClubs.setBackground(Color.WHITE);
-		rdbtnBiClubs.setBounds(127, 69, 57, 23);
+		rdbtnBiClubs.setBounds(127, 69, 76, 23);
 		panelBiCards.add(rdbtnBiClubs);
 		
 		group2 = new ButtonGroup();
@@ -394,7 +395,53 @@ public class GUI {
 			  public void actionPerformed(ActionEvent e) { 
 				  if(rdbtnTossingACoin.isSelected())
 				  {
+					  float x = Float.parseFloat(textFieldNumberOfSuccesses.getText());
+					  float size = Float.parseFloat(textFieldNumberOfTrials.getText());
+					  float prob = 1/2;
 					  
+					  if(rdbtnBiHeads.isSelected())
+						  controller.getBinomialCoins(x, size, prob, rdbtnBiHeads.getText());
+					  else if(rdbtnBiTails.isSelected())
+						  controller.getBinomialCoins(x, size, prob, rdbtnBiTails.getText());
+				  }
+				  else if(rdbtnDeckOfCards.isSelected())
+				  {
+					  float x = Float.parseFloat(textFieldNumberOfSuccesses.getText());
+					  float size = Float.parseFloat(textFieldNumberOfTrials.getText());
+					  float prob = 13/52;
+					  
+					  if(rdbtnBiDiamonds.isSelected())
+						  controller.getBinomialCards(x, size, prob, rdbtnBiDiamonds.getText());
+					  else if(rdbtnBiSpades.isSelected())
+						  controller.getBinomialCards(x, size, prob, rdbtnBiSpades.getText());
+					  else if(rdbtnBiHearts.isSelected())
+						  controller.getBinomialCards(x, size, prob, rdbtnBiHearts.getText());
+					  else if(rdbtnBiClubs.isSelected())
+						  controller.getBinomialCards(x, size, prob, rdbtnBiClubs.getText());
+				  }
+				  else if(rdbtnMarbles.isSelected())
+				  {
+					  float x = Float.parseFloat(textFieldNumberOfSuccesses.getText());
+					  float size = Float.parseFloat(textFieldNumberOfTrials.getText());
+					  float numGold = Float.parseFloat(textFieldBiGold.getText());
+					  float numSilver = Float.parseFloat(textFieldBiSilver.getText());
+					  float numBronze = Float.parseFloat(textField.getText());
+					  
+					  if(rdbtnBiGold.isSelected())
+					  {
+						  float prob = numGold/(numSilver + numBronze);
+						  controller.getBinomialMarbles(x, size, prob, rdbtnBiGold.getText());
+					  }
+					  else if(rdbtnBiSilver.isSelected())
+					  {
+						  float prob = numSilver/(numGold + numBronze);
+						  controller.getBinomialMarbles(x, size, prob, rdbtnBiSilver.getText());
+					  }
+					  else if(rdbtnBiBronze.isSelected())
+					  {
+						  float prob = numBronze/(numSilver + numGold);
+						  controller.getBinomialMarbles(x, size, prob, rdbtnBiBronze.getText());
+					  }
 				  }
 			  } 
 		});
@@ -468,22 +515,22 @@ public class GUI {
 		
 		radioButton_2 = new JRadioButton("Diamonds");
 		radioButton_2.setBackground(Color.WHITE);
-		radioButton_2.setBounds(10, 41, 71, 23);
+		radioButton_2.setBounds(10, 41, 86, 23);
 		panel_1.add(radioButton_2);
 		
 		radioButton_3 = new JRadioButton("Spades");
 		radioButton_3.setBackground(Color.WHITE);
-		radioButton_3.setBounds(10, 69, 61, 23);
+		radioButton_3.setBounds(10, 69, 86, 23);
 		panel_1.add(radioButton_3);
 		
 		radioButton_4 = new JRadioButton("Hearts");
 		radioButton_4.setBackground(Color.WHITE);
-		radioButton_4.setBounds(127, 41, 57, 23);
+		radioButton_4.setBounds(127, 41, 72, 23);
 		panel_1.add(radioButton_4);
 		
 		radioButton_5 = new JRadioButton("Clubs");
 		radioButton_5.setBackground(Color.WHITE);
-		radioButton_5.setBounds(127, 69, 57, 23);
+		radioButton_5.setBounds(127, 69, 72, 23);
 		panel_1.add(radioButton_5);
 		
 		group5 = new ButtonGroup();
@@ -556,7 +603,18 @@ public class GUI {
 		panelNegativeBinomial.add(button);
 		button.addActionListener(new ActionListener() { 
 			  public void actionPerformed(ActionEvent e) { 
-				    
+				  if(rdbtnTossingACoin.isSelected())
+				  {
+					  
+				  }
+				  else if(rdbtnDeckOfCards.isSelected())
+				  {
+					  
+				  }
+				  else if(rdbtnMarbles.isSelected())
+				  {
+					  
+				  }
 			  } 
 		});
 		
@@ -611,22 +669,22 @@ public class GUI {
 		
 		radioButton_11 = new JRadioButton("Diamonds");
 		radioButton_11.setBackground(Color.WHITE);
-		radioButton_11.setBounds(10, 41, 71, 23);
+		radioButton_11.setBounds(10, 41, 91, 23);
 		panel_4.add(radioButton_11);
 		
 		radioButton_12 = new JRadioButton("Spades");
 		radioButton_12.setBackground(Color.WHITE);
-		radioButton_12.setBounds(10, 69, 61, 23);
+		radioButton_12.setBounds(10, 69, 91, 23);
 		panel_4.add(radioButton_12);
 		
 		radioButton_13 = new JRadioButton("Hearts");
 		radioButton_13.setBackground(Color.WHITE);
-		radioButton_13.setBounds(127, 41, 57, 23);
+		radioButton_13.setBounds(127, 41, 82, 23);
 		panel_4.add(radioButton_13);
 		
 		radioButton_14 = new JRadioButton("Clubs");
 		radioButton_14.setBackground(Color.WHITE);
-		radioButton_14.setBounds(127, 69, 57, 23);
+		radioButton_14.setBounds(127, 69, 82, 23);
 		panel_4.add(radioButton_14);
 		
 		group8 = new ButtonGroup();
@@ -733,6 +791,22 @@ public class GUI {
 		button_1 = new JButton("Execute");
 		button_1.setBounds(107, 445, 89, 23);
 		panelHypergeometric.add(button_1);
+		button_1.addActionListener(new ActionListener() { 
+			  public void actionPerformed(ActionEvent e) { 
+				  if(rdbtnTossingACoin.isSelected())
+				  {
+					  
+				  }
+				  else if(rdbtnDeckOfCards.isSelected())
+				  {
+					  
+				  }
+				  else if(rdbtnMarbles.isSelected())
+				  {
+					  
+				  }
+			  } 
+		});
 		
 		btnClear_1 = new JButton("Clear");
 		btnClear_1.setBounds(389, 445, 89, 23);
@@ -979,7 +1053,18 @@ public class GUI {
 		panelMultinomial.add(button_2);
 		button_2.addActionListener(new ActionListener() { 
 			  public void actionPerformed(ActionEvent e) { 
-				    
+				  if(rdbtnTossingACoin.isSelected())
+				  {
+					  
+				  }
+				  else if(rdbtnDeckOfCards.isSelected())
+				  {
+					  
+				  }
+				  else if(rdbtnMarbles.isSelected())
+				  {
+					  
+				  }
 			  } 
 		});
 		
