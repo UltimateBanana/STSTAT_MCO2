@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -104,7 +105,6 @@ public class GUI {
 	private JLabel label_10;
 	// Cards
 	private JPanel panel_4;
-	private JLabel label_11;
 	private ButtonGroup group8;
 	private JLabel label_8;
 	private JLabel lblNumberOfCards_2;
@@ -132,52 +132,26 @@ public class GUI {
 	private JPanel panelMultinomial;
 	// Coins
 	private JPanel panel_6;
-	private JRadioButton radioButton_18;
-	private JRadioButton radioButton_19;
 	private ButtonGroup group10;
-	private JLabel label_16;
-	private JLabel label_21;
+	private JLabel lblNumberOfKexperiments_1;
 	private JLabel label_22;
 	private JTextField textField_27;
 	private JTextField textField_28;
 	// Cards
 	private JPanel panel_7;
-	private JLabel label_17;
-	private JCheckBox chckbxDiamonds;
-	private JCheckBox chckbxSpades;
-	private JCheckBox chckbxHearts;
-	private JCheckBox chckbxClubs;
-	private JLabel lblNumberOfDiamonds;
-	private JLabel lblNumberOfSpades;
-	private JLabel lblNumberOfHearts;
-	private JLabel lblNumberOfClubs;
-	private JTextField textField_13;
-	private JTextField textField_14;
-	private JTextField textField_20;
-	private JTextField textField_21;
-	private JLabel lblSampleRun;
+	private JLabel lblMultinomKExperiments;
 	private JLabel lblNumberOfTrials_1;
 	private JTextField textField_23;
 	private JTextField textField_24;
 	// Marbles
 	private JPanel panel_8;
-	private JLabel label_20;
-	private JLabel lblTotalNumberOf;
-	private JLabel lblTotalNumberOf_1;
-	private JLabel lblTotalNumberOf_2;
-	private JTextField textField_15;
-	private JTextField textField_16;
-	private JTextField textField_17;
-	private JCheckBox chckbxGold;
-	private JCheckBox chckbxSilver;
-	private JCheckBox chckbxBronze;
 	private JLabel lblSelectedGoldMarbles;
 	private JLabel lblSelectedSilverMarbles;
 	private JLabel lblSelectedBronzeMarbles;
 	private JTextField textField_18;
 	private JTextField textField_19;
 	private JTextField textField_22;
-	private JLabel label_18;
+	private JLabel lblNumberOfKexperiments_2;
 	private JLabel label_19;
 	private JTextField textField_25;
 	private JTextField textField_26;
@@ -201,6 +175,14 @@ public class GUI {
 	private JTextField textField_32;
 	private JLabel label_23;
 	private JTextField textField_33;
+	private JLabel lblProbabilityForGroup;
+	private JLabel lblProbabilityForGroup_1;
+	private JLabel lblProbabilityForGroup_2;
+	private JLabel lblProbabilityForGroup_3;
+	private JTextField textField_7;
+	private JTextField textField_13;
+	private JTextField textField_14;
+	private JTextField textField_20;
 	
 	
 	
@@ -383,9 +365,9 @@ public class GUI {
 			  public void actionPerformed(ActionEvent e) { 
 				  if(rdbtnTossingACoin.isSelected())
 				  {
-					  float x = Float.parseFloat(textFieldKExperiments.getText());
-					  float size = Float.parseFloat(textFieldNumberOfTrials.getText());
-					  float prob = 1/2;
+					  double x = Float.parseFloat(textFieldKExperiments.getText());
+					  double size = Float.parseFloat(textFieldNumberOfTrials.getText());
+					  double prob = 1/2;
 					  
 					  if(rdbtnBiHeads.isSelected())
 						  controller.getBinomial(x, size, prob, rdbtnBiHeads.getText());
@@ -394,36 +376,36 @@ public class GUI {
 				  }
 				  else if(rdbtnDeckOfCards.isSelected())
 				  {
-					  float x = Float.parseFloat(textFieldKExperiments.getText());
-					  float size = Float.parseFloat(textFieldNumberOfTrials.getText());
-					  float numCards = Float.parseFloat(textField_29.getText());
-					  float prob = numCards/52;
+					  double x = Float.parseFloat(textFieldKExperiments.getText());
+					  double size = Float.parseFloat(textFieldNumberOfTrials.getText());
+					  double numCards = Float.parseFloat(textField_29.getText());
+					  double prob = numCards/52;
 					  
 					  controller.getBinomial(x, size, prob, "Number of successful cards in the deck");
 				  }
 				  else if(rdbtnMarbles.isSelected())
 				  {
-					  float x = Float.parseFloat(textFieldKExperiments.getText());
-					  float size = Float.parseFloat(textFieldNumberOfTrials.getText());
-					  float numGold = Float.parseFloat(textFieldBiGold.getText());
-					  float numSilver = Float.parseFloat(textFieldBiSilver.getText());
-					  float numBronze = Float.parseFloat(textField.getText());
+					  double x = Float.parseFloat(textFieldKExperiments.getText());
+					  double size = Float.parseFloat(textFieldNumberOfTrials.getText());
+					  double numGold = Float.parseFloat(textFieldBiGold.getText());
+					  double numSilver = Float.parseFloat(textFieldBiSilver.getText());
+					  double numBronze = Float.parseFloat(textField.getText());
 					  
 					  if(rdbtnBiGold.isSelected())
 					  {
 						  if(numSilver == 0)
 						  {
-							  float prob = numGold/(numBronze);
+							  double prob = numGold/(numBronze);
 							  controller.getBinomial(x, size, prob, rdbtnBiGold.getText());
 						  }
 						  else if(numBronze == 0)
 						  {
-							  float prob = numGold/(numSilver);
+							  double prob = numGold/(numSilver);
 							  controller.getBinomial(x, size, prob, rdbtnBiGold.getText());
 						  }
 						  else
 						  {
-							  float prob = numGold/(numSilver + numBronze);
+							  double prob = numGold/(numSilver + numBronze);
 							  controller.getBinomial(x, size, prob, rdbtnBiGold.getText());
 						  }
 					  }
@@ -431,17 +413,17 @@ public class GUI {
 					  {
 						  if(numGold == 0)
 						  {
-							  float prob = numSilver/(numBronze);
+							  double prob = numSilver/(numBronze);
 							  controller.getBinomial(x, size, prob, rdbtnBiSilver.getText());
 						  }
 						  else if(numBronze == 0)
 						  {
-							  float prob = numSilver/(numGold);
+							  double prob = numSilver/(numGold);
 							  controller.getBinomial(x, size, prob, rdbtnBiSilver.getText());
 						  }
 						  else
 						  {
-							  float prob = numSilver/(numGold + numBronze);
+							  double prob = numSilver/(numGold + numBronze);
 							  controller.getBinomial(x, size, prob, rdbtnBiSilver.getText());
 						  }
 					  }
@@ -449,17 +431,17 @@ public class GUI {
 					  {
 						  if(numGold == 0)
 						  {
-							  float prob = numBronze/(numSilver);
+							  double prob = numBronze/(numSilver);
 							  controller.getBinomial(x, size, prob, rdbtnBiBronze.getText());
 						  }
 						  else if(numSilver == 0)
 						  {
-							  float prob = numBronze/(numGold);
+							  double prob = numBronze/(numGold);
 							  controller.getBinomial(x, size, prob, rdbtnBiBronze.getText());
 						  }
 						  else
 						  {
-							  float prob = numBronze/(numSilver + numGold);
+							  double prob = numBronze/(numSilver + numGold);
 							  controller.getBinomial(x, size, prob, rdbtnBiBronze.getText());
 						  }
 					  }
@@ -611,9 +593,9 @@ public class GUI {
 			  public void actionPerformed(ActionEvent e) { 
 				  if(rdbtnTossingACoin.isSelected())
 				  {
-					  float k = Float.parseFloat(textField_30.getText());
-					  float size = Float.parseFloat(textField_2.getText());
-					  float prob = 1/2;
+					  double k = Float.parseFloat(textField_30.getText());
+					  double size = Float.parseFloat(textField_2.getText());
+					  double prob = 1/2;
 					  
 					  if(radioButton.isSelected())
 					  {
@@ -626,36 +608,36 @@ public class GUI {
 				  }
 				  else if(rdbtnDeckOfCards.isSelected())
 				  {
-					  float k = Float.parseFloat(textField_30.getText());
-					  float size = Float.parseFloat(textField_2.getText());
-					  float numCards = Float.parseFloat(textField_1.getText());
-					  float prob = numCards/52;
+					  double k = Float.parseFloat(textField_30.getText());
+					  double size = Float.parseFloat(textField_2.getText());
+					  double numCards = Float.parseFloat(textField_1.getText());
+					  double prob = numCards/52;
 					  
 					  controller.getNegativeBinomial(k, size, prob, "Number of successful cards in the deck");
 				  }
 				  else if(rdbtnMarbles.isSelected())
 				  {
-					  float k = Float.parseFloat(textField_30.getText());
-					  float size = Float.parseFloat(textField_2.getText());
-					  float numGold = Float.parseFloat(textField_3.getText());
-					  float numSilver = Float.parseFloat(textField_4.getText());
-					  float numBronze = Float.parseFloat(textField_5.getText());
+					  double k = Float.parseFloat(textField_30.getText());
+					  double size = Float.parseFloat(textField_2.getText());
+					  double numGold = Float.parseFloat(textField_3.getText());
+					  double numSilver = Float.parseFloat(textField_4.getText());
+					  double numBronze = Float.parseFloat(textField_5.getText());
 					  
 					  if(radioButton_6.isSelected())
 					  {
 						  if(numSilver == 0)
 						  {
-							  float prob = numGold/(numBronze);
+							  double prob = numGold/(numBronze);
 							  controller.getNegativeBinomial(k, size, prob, radioButton_6.getText());
 						  }
 						  else if(numBronze == 0)
 						  {
-							  float prob = numGold/(numSilver);
+							  double prob = numGold/(numSilver);
 							  controller.getNegativeBinomial(k, size, prob, radioButton_6.getText());
 						  }
 						  else
 						  {
-							  float prob = numGold/(numSilver + numBronze);
+							  double prob = numGold/(numSilver + numBronze);
 							  controller.getNegativeBinomial(k, size, prob, radioButton_6.getText());
 						  }
 					  }
@@ -663,17 +645,17 @@ public class GUI {
 					  {
 						  if(numGold == 0)
 						  {
-							  float prob = numSilver/(numBronze);
+							  double prob = numSilver/(numBronze);
 							  controller.getNegativeBinomial(k, size, prob, radioButton_7.getText());
 						  }
 						  else if(numBronze == 0)
 						  {
-							  float prob = numSilver/(numGold);
+							  double prob = numSilver/(numGold);
 							  controller.getNegativeBinomial(k, size, prob, radioButton_7.getText());
 						  }
 						  else
 						  {
-							  float prob = numSilver/(numGold + numBronze);
+							  double prob = numSilver/(numGold + numBronze);
 							  controller.getNegativeBinomial(k, size, prob, radioButton_7.getText());
 						  }
 					  }
@@ -681,17 +663,17 @@ public class GUI {
 					  {
 						  if(numGold == 0)
 						  {
-							  float prob = numBronze/(numSilver);
+							  double prob = numBronze/(numSilver);
 							  controller.getNegativeBinomial(k, size, prob, radioButton_8.getText());
 						  }
 						  else if(numSilver == 0)
 						  {
-							  float prob = numBronze/(numGold);
+							  double prob = numBronze/(numGold);
 							  controller.getNegativeBinomial(k, size, prob, radioButton_8.getText());
 						  }
 						  else
 						  {
-							  float prob = numBronze/(numSilver + numGold);
+							  double prob = numBronze/(numSilver + numGold);
 							  controller.getNegativeBinomial(k, size, prob, radioButton_8.getText());
 						  }
 					  }
@@ -753,37 +735,33 @@ public class GUI {
 		panel_4.setBounds(10, 156, 636, 133);
 		panelHypergeometric.add(panel_4);
 		
-		label_11 = new JLabel("Definition of Success");
-		label_11.setBounds(10, 20, 137, 14);
-		panel_4.add(label_11);
-		
 //		group8 = new ButtonGroup();
 		
 		label_8 = new JLabel("Number of Items in Sample:");
-		label_8.setBounds(10, 48, 182, 14);
+		label_8.setBounds(10, 26, 182, 14);
 		panel_4.add(label_8);
 		
 		lblNumberOfCards_2 = new JLabel("Number of Cards:");
-		lblNumberOfCards_2.setBounds(10, 74, 182, 14);
+		lblNumberOfCards_2.setBounds(10, 52, 182, 14);
 		panel_4.add(lblNumberOfCards_2);
 		
 		textField_11 = new JTextField();
 		textField_11.setColumns(10);
-		textField_11.setBounds(202, 71, 69, 20);
+		textField_11.setBounds(202, 49, 69, 20);
 		panel_4.add(textField_11);
 		
 		textField_12 = new JTextField();
 		textField_12.setColumns(10);
-		textField_12.setBounds(202, 45, 69, 20);
+		textField_12.setBounds(202, 23, 69, 20);
 		panel_4.add(textField_12);
 		
 		label = new JLabel("Number of k-experiments:");
-		label.setBounds(10, 102, 144, 14);
+		label.setBounds(10, 80, 144, 14);
 		panel_4.add(label);
 		
 		textField_32 = new JTextField();
 		textField_32.setColumns(10);
-		textField_32.setBounds(202, 99, 69, 20);
+		textField_32.setBounds(202, 77, 69, 20);
 		panel_4.add(textField_32);
 		
 		// Marbles
@@ -870,10 +848,10 @@ public class GUI {
 			  public void actionPerformed(ActionEvent e) { 
 				  if(rdbtnTossingACoin.isSelected())
 				  {
-					  float nn = Float.parseFloat(textField_31.getText()); // k-experiments
-					  float m = 1;
-					  float n = 1;
-					  float k = 1;
+					  double nn = Float.parseFloat(textField_31.getText()); // k-experiments
+					  double m = 1;
+					  double n = 1;
+					  double k = 1;
 					  
 					  if(radioButton_9.isSelected())
 						  controller.getHypergeometric(nn, m, n, k, radioButton_9.getText());
@@ -882,39 +860,39 @@ public class GUI {
 				  }
 				  else if(rdbtnDeckOfCards.isSelected())
 				  {
-					  float nn = Float.parseFloat(textField_32.getText()); // k-experiments
-					  float m = Float.parseFloat(textField_11.getText());
-					  float n = 52-m;
-					  float k = Float.parseFloat(textField_12.getText());
+					  double nn = Float.parseFloat(textField_32.getText()); // k-experiments
+					  double m = Float.parseFloat(textField_11.getText());
+					  double n = 52-m;
+					  double k = Float.parseFloat(textField_12.getText());
 					  
 					  controller.getHypergeometric(nn, m, n, k, "Number of successful cards in the deck");
 				  }
 				  else if(rdbtnMarbles.isSelected())
 				  {
-					  float nn = Float.parseFloat(textField_33.getText()); // k-experiments
-					  float numGold = Float.parseFloat("textField_8");
-					  float numSilver = Float.parseFloat("textField_9");
-					  float numBronze = Float.parseFloat("textField_10");
-					  float k = Float.parseFloat(textField_6.getText());
+					  double nn = Float.parseFloat(textField_33.getText()); // k-experiments
+					  double numGold = Float.parseFloat("textField_8");
+					  double numSilver = Float.parseFloat("textField_9");
+					  double numBronze = Float.parseFloat("textField_10");
+					  double k = Float.parseFloat(textField_6.getText());
 					  
 					  if(radioButton_15.isSelected())
 					  {
-						  float m = numGold;
-						  float n = numSilver + numBronze;
+						  double m = numGold;
+						  double n = numSilver + numBronze;
 						  
 						  controller.getHypergeometric(nn, m, n, k, radioButton_15.getText());
 					  }
 					  else if(radioButton_16.isSelected())
 					  {
-						  float m = numSilver;
-						  float n = numGold + numBronze;
+						  double m = numSilver;
+						  double n = numGold + numBronze;
 						  
 						  controller.getHypergeometric(nn, m, n, k, radioButton_16.getText());
 					  }
 					  else if(radioButton_17.isSelected())
 					  {
-						  float m = numBronze;
-						  float n = numGold + numSilver;
+						  double m = numBronze;
+						  double n = numGold + numSilver;
 						  
 						  controller.getHypergeometric(nn, m, n, k, radioButton_16.getText());
 					  }
@@ -941,40 +919,24 @@ public class GUI {
 		panel_6.setBounds(10, 11, 636, 134);
 		panelMultinomial.add(panel_6);
 		
-		radioButton_18 = new JRadioButton("Heads");
-		radioButton_18.setBackground(Color.WHITE);
-		radioButton_18.setBounds(10, 41, 74, 23);
-		panel_6.add(radioButton_18);
+//		group10 = new ButtonGroup();
 		
-		radioButton_19 = new JRadioButton("Tails");
-		radioButton_19.setBackground(Color.WHITE);
-		radioButton_19.setBounds(86, 41, 74, 23);
-		panel_6.add(radioButton_19);
-		
-		group10 = new ButtonGroup();
-		group10.add(radioButton_18);
-		group10.add(radioButton_19);
-		
-		label_16 = new JLabel("Definition of Success");
-		label_16.setBounds(10, 20, 124, 14);
-		panel_6.add(label_16);
-		
-		label_21 = new JLabel("Sample Run:");
-		label_21.setBounds(194, 23, 104, 14);
-		panel_6.add(label_21);
+		lblNumberOfKexperiments_1 = new JLabel("Number of k-experiments:");
+		lblNumberOfKexperiments_1.setBounds(10, 25, 143, 14);
+		panel_6.add(lblNumberOfKexperiments_1);
 		
 		label_22 = new JLabel("Number of Trials:");
-		label_22.setBounds(194, 49, 104, 14);
+		label_22.setBounds(10, 48, 143, 14);
 		panel_6.add(label_22);
 		
 		textField_27 = new JTextField();
 		textField_27.setColumns(10);
-		textField_27.setBounds(308, 20, 73, 20);
+		textField_27.setBounds(151, 19, 73, 20);
 		panel_6.add(textField_27);
 		
 		textField_28 = new JTextField();
 		textField_28.setColumns(10);
-		textField_28.setBounds(308, 46, 73, 20);
+		textField_28.setBounds(151, 45, 73, 20);
 		panel_6.add(textField_28);
 		
 		// Cards
@@ -985,83 +947,59 @@ public class GUI {
 		panel_7.setBounds(10, 156, 636, 141);
 		panelMultinomial.add(panel_7);
 		
-		label_17 = new JLabel("Definition of Success");
-		label_17.setBounds(10, 20, 124, 14);
-		panel_7.add(label_17);
-		
-		chckbxDiamonds = new JCheckBox("Diamonds");
-		chckbxDiamonds.setBackground(Color.WHITE);
-		chckbxDiamonds.setBounds(10, 33, 97, 23);
-		panel_7.add(chckbxDiamonds);
-		
-		chckbxSpades = new JCheckBox("Spades");
-		chckbxSpades.setBackground(Color.WHITE);
-		chckbxSpades.setBounds(10, 59, 97, 23);
-		panel_7.add(chckbxSpades);
-		
-		chckbxHearts = new JCheckBox("Hearts");
-		chckbxHearts.setBackground(Color.WHITE);
-		chckbxHearts.setBounds(10, 85, 97, 23);
-		panel_7.add(chckbxHearts);
-		
-		chckbxClubs = new JCheckBox("Clubs");
-		chckbxClubs.setBackground(Color.WHITE);
-		chckbxClubs.setBounds(10, 111, 97, 23);
-		panel_7.add(chckbxClubs);
-		
-		lblNumberOfDiamonds = new JLabel("Number of Selected Diamonds:");
-		lblNumberOfDiamonds.setBounds(132, 42, 179, 14);
-		panel_7.add(lblNumberOfDiamonds);
-		
-		lblNumberOfSpades = new JLabel("Number of Selected Spades:");
-		lblNumberOfSpades.setBounds(132, 68, 179, 14);
-		panel_7.add(lblNumberOfSpades);
-		
-		lblNumberOfHearts = new JLabel("Number of Selected Hearts:");
-		lblNumberOfHearts.setBounds(132, 94, 179, 14);
-		panel_7.add(lblNumberOfHearts);
-		
-		lblNumberOfClubs = new JLabel("Number of Selected Clubs:");
-		lblNumberOfClubs.setBounds(132, 120, 179, 14);
-		panel_7.add(lblNumberOfClubs);
-		
-		textField_13 = new JTextField();
-		textField_13.setBounds(321, 36, 86, 20);
-		panel_7.add(textField_13);
-		textField_13.setColumns(10);
-		
-		textField_14 = new JTextField();
-		textField_14.setColumns(10);
-		textField_14.setBounds(321, 62, 86, 20);
-		panel_7.add(textField_14);
-		
-		textField_20 = new JTextField();
-		textField_20.setColumns(10);
-		textField_20.setBounds(321, 88, 86, 20);
-		panel_7.add(textField_20);
-		
-		textField_21 = new JTextField();
-		textField_21.setColumns(10);
-		textField_21.setBounds(321, 114, 86, 20);
-		panel_7.add(textField_21);
-		
-		lblSampleRun = new JLabel("Sample Run:");
-		lblSampleRun.setBounds(436, 36, 107, 14);
-		panel_7.add(lblSampleRun);
+		lblMultinomKExperiments = new JLabel("Number of k-experiments:");
+		lblMultinomKExperiments.setBounds(263, 21, 142, 14);
+		panel_7.add(lblMultinomKExperiments);
 		
 		lblNumberOfTrials_1 = new JLabel("Number of Trials:");
-		lblNumberOfTrials_1.setBounds(436, 62, 107, 14);
+		lblNumberOfTrials_1.setBounds(263, 47, 142, 14);
 		panel_7.add(lblNumberOfTrials_1);
 		
 		textField_23 = new JTextField();
-		textField_23.setBounds(553, 33, 73, 20);
+		textField_23.setBounds(415, 18, 73, 20);
 		panel_7.add(textField_23);
 		textField_23.setColumns(10);
 		
 		textField_24 = new JTextField();
 		textField_24.setColumns(10);
-		textField_24.setBounds(553, 59, 73, 20);
+		textField_24.setBounds(415, 44, 73, 20);
 		panel_7.add(textField_24);
+		
+		lblProbabilityForGroup = new JLabel("Probability for Group1:");
+		lblProbabilityForGroup.setBounds(10, 18, 124, 14);
+		panel_7.add(lblProbabilityForGroup);
+		
+		lblProbabilityForGroup_1 = new JLabel("Probability for Group2:");
+		lblProbabilityForGroup_1.setBounds(10, 41, 124, 14);
+		panel_7.add(lblProbabilityForGroup_1);
+		
+		lblProbabilityForGroup_2 = new JLabel("Probability for Group3:");
+		lblProbabilityForGroup_2.setBounds(10, 66, 124, 14);
+		panel_7.add(lblProbabilityForGroup_2);
+		
+		lblProbabilityForGroup_3 = new JLabel("Probability for Group4:");
+		lblProbabilityForGroup_3.setBounds(10, 91, 124, 14);
+		panel_7.add(lblProbabilityForGroup_3);
+		
+		textField_7 = new JTextField();
+		textField_7.setBounds(136, 15, 86, 20);
+		panel_7.add(textField_7);
+		textField_7.setColumns(10);
+		
+		textField_13 = new JTextField();
+		textField_13.setColumns(10);
+		textField_13.setBounds(136, 40, 86, 20);
+		panel_7.add(textField_13);
+		
+		textField_14 = new JTextField();
+		textField_14.setColumns(10);
+		textField_14.setBounds(136, 66, 86, 20);
+		panel_7.add(textField_14);
+		
+		textField_20 = new JTextField();
+		textField_20.setColumns(10);
+		textField_20.setBounds(136, 88, 86, 20);
+		panel_7.add(textField_20);
 		
 		// Marbles
 		panel_8 = new JPanel();
@@ -1071,95 +1009,49 @@ public class GUI {
 		panel_8.setBounds(10, 300, 636, 134);
 		panelMultinomial.add(panel_8);
 		
-		label_20 = new JLabel("Definition of Success");
-		label_20.setBounds(10, 20, 124, 14);
-		panel_8.add(label_20);
-		
-		lblTotalNumberOf = new JLabel("Total Number of Gold Marbles:");
-		lblTotalNumberOf.setBounds(85, 43, 196, 14);
-		panel_8.add(lblTotalNumberOf);
-		
-		lblTotalNumberOf_1 = new JLabel("Total Number of Silver Marbles:");
-		lblTotalNumberOf_1.setBounds(85, 69, 196, 14);
-		panel_8.add(lblTotalNumberOf_1);
-		
-		lblTotalNumberOf_2 = new JLabel("Total Number of Bronze Marbles:");
-		lblTotalNumberOf_2.setBounds(85, 95, 196, 14);
-		panel_8.add(lblTotalNumberOf_2);
-		
-		textField_15 = new JTextField();
-		textField_15.setColumns(10);
-		textField_15.setBounds(283, 43, 51, 20);
-		panel_8.add(textField_15);
-		
-		textField_16 = new JTextField();
-		textField_16.setColumns(10);
-		textField_16.setBounds(283, 69, 51, 20);
-		panel_8.add(textField_16);
-		
-		textField_17 = new JTextField();
-		textField_17.setColumns(10);
-		textField_17.setBounds(283, 95, 51, 20);
-		panel_8.add(textField_17);
-		
-		chckbxGold = new JCheckBox("Gold");
-		chckbxGold.setBackground(Color.WHITE);
-		chckbxGold.setBounds(10, 40, 97, 23);
-		panel_8.add(chckbxGold);
-		
-		chckbxSilver = new JCheckBox("Silver");
-		chckbxSilver.setBackground(Color.WHITE);
-		chckbxSilver.setBounds(10, 66, 97, 23);
-		panel_8.add(chckbxSilver);
-		
-		chckbxBronze = new JCheckBox("Bronze");
-		chckbxBronze.setBackground(Color.WHITE);
-		chckbxBronze.setBounds(10, 92, 97, 23);
-		panel_8.add(chckbxBronze);
-		
-		lblSelectedGoldMarbles = new JLabel("Number of Selected Gold Marbles:");
-		lblSelectedGoldMarbles.setBounds(366, 43, 210, 14);
+		lblSelectedGoldMarbles = new JLabel("Probability of Gold Marbles:");
+		lblSelectedGoldMarbles.setBounds(10, 28, 210, 14);
 		panel_8.add(lblSelectedGoldMarbles);
 		
 		textField_18 = new JTextField();
 		textField_18.setColumns(10);
-		textField_18.setBounds(575, 43, 51, 20);
+		textField_18.setBounds(219, 28, 51, 20);
 		panel_8.add(textField_18);
 		
-		lblSelectedSilverMarbles = new JLabel("Number of Selected Silver Marbles:");
-		lblSelectedSilverMarbles.setBounds(366, 69, 210, 14);
+		lblSelectedSilverMarbles = new JLabel("Probability of Silver Marbles:");
+		lblSelectedSilverMarbles.setBounds(10, 54, 210, 14);
 		panel_8.add(lblSelectedSilverMarbles);
 		
 		textField_19 = new JTextField();
 		textField_19.setColumns(10);
-		textField_19.setBounds(575, 69, 51, 20);
+		textField_19.setBounds(219, 54, 51, 20);
 		panel_8.add(textField_19);
 		
-		lblSelectedBronzeMarbles = new JLabel("Number of Selected Bronze Marbles:");
-		lblSelectedBronzeMarbles.setBounds(366, 95, 210, 14);
+		lblSelectedBronzeMarbles = new JLabel("Probability of Bronze Marbles:");
+		lblSelectedBronzeMarbles.setBounds(10, 80, 210, 14);
 		panel_8.add(lblSelectedBronzeMarbles);
 		
 		textField_22 = new JTextField();
 		textField_22.setColumns(10);
-		textField_22.setBounds(575, 95, 51, 20);
+		textField_22.setBounds(219, 80, 51, 20);
 		panel_8.add(textField_22);
 		
-		label_18 = new JLabel("Sample Run:");
-		label_18.setBounds(169, 17, 82, 14);
-		panel_8.add(label_18);
+		lblNumberOfKexperiments_2 = new JLabel("Number of k-experiments:");
+		lblNumberOfKexperiments_2.setBounds(295, 31, 142, 14);
+		panel_8.add(lblNumberOfKexperiments_2);
 		
 		textField_25 = new JTextField();
 		textField_25.setColumns(10);
-		textField_25.setBounds(261, 14, 73, 20);
+		textField_25.setBounds(447, 28, 73, 20);
 		panel_8.add(textField_25);
 		
 		label_19 = new JLabel("Number of Trials:");
-		label_19.setBounds(356, 17, 103, 14);
+		label_19.setBounds(375, 82, 103, 14);
 		panel_8.add(label_19);
 		
 		textField_26 = new JTextField();
 		textField_26.setColumns(10);
-		textField_26.setBounds(469, 17, 73, 20);
+		textField_26.setBounds(447, 59, 73, 20);
 		panel_8.add(textField_26);
 		
 		button_2 = new JButton("Execute");
@@ -1169,15 +1061,62 @@ public class GUI {
 			  public void actionPerformed(ActionEvent e) { 
 				  if(rdbtnTossingACoin.isSelected())
 				  {
+					  double k = Double.parseDouble(textField_27.getText());
+					  double size = Double.parseDouble(textField_28.getText());
+					  double[] prob = {0.5, 0.5};
 					  
+					  controller.getMultinomial(k, size, prob);
 				  }
 				  else if(rdbtnDeckOfCards.isSelected())
 				  {
+					  double k = Double.parseDouble(textField_23.getText());
+					  double size = Double.parseDouble(textField_24.getText());
+					  double probGroup1 = Double.parseDouble(textField_7.getText());
+					  double probGroup2 = Double.parseDouble(textField_13.getText());
+					  double probGroup3 = Double.parseDouble(textField_14.getText());
+					  double probGroup4 = Double.parseDouble(textField_20.getText());
+					  ArrayList<Double> listProb = new ArrayList<Double>(0);
 					  
+					  if(probGroup1 != 0)
+						  listProb.add(probGroup1);
+					  if(probGroup2 != 0)
+						  listProb.add(probGroup2);
+					  if(probGroup3 != 0)
+						  listProb.add(probGroup3);
+					  if(probGroup4 != 0)
+						  listProb.add(probGroup4);
+					  
+					  double[] prob = new double[listProb.size()];
+					  for(int i = 0; i < listProb.size(); i++)
+					  {
+						  prob[i] = listProb.get(i);
+					  }
+					  
+					  controller.getMultinomial(k, size, prob);
 				  }
 				  else if(rdbtnMarbles.isSelected())
 				  {
+					  double k = Double.parseDouble(textField_25.getText());
+					  double size = Double.parseDouble(textField_26.getText());
+					  double probGold = Double.parseDouble(textField_18.getText());
+					  double probSilver = Double.parseDouble(textField_19.getText());
+					  double probBronze = Double.parseDouble(textField_22.getText());
+					  ArrayList<Double> listProb = new ArrayList<Double>(0);
 					  
+					  if(probGold != 0)
+						  listProb.add(probGold);
+					  if(probSilver != 0)
+						  listProb.add(probSilver);
+					  if(probBronze != 0)
+						  listProb.add(probBronze);
+					  
+					  double[] prob = new double[listProb.size()];
+					  for(int i = 0; i < listProb.size(); i++)
+					  {
+						  prob[i] = listProb.get(i);
+					  }
+					  
+					  controller.getMultinomial(k, size, prob);
 				  }
 			  } 
 		});

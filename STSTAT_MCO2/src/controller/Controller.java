@@ -17,20 +17,20 @@ public class Controller {
 	}
 	
 	// Binomial
-	public void getBinomial(float k, float size, float prob, String definitionOfSuccess)
+	public void getBinomial(double k, double size, double prob, String definitionOfSuccess)
 	{
 		System.out.println("BinomialCoins!");
 		// Call the Binomial method here
 	}
 	
 	// Negative Binomial
-	public void getNegativeBinomial(float k, float size, float prob, String definitionOfSuccess)
+	public void getNegativeBinomial(double k, double size, double prob, String definitionOfSuccess)
 	{
 		System.out.println("NegativeBinomialCoins!");
 	}
 	
 	// Hypergeometric
-	public void getHypergeometric(float nn, float m, float n, float k, String definitionOfSuccess)
+	public void getHypergeometric(double nn, double m, double n, double k, String definitionOfSuccess)
 	{
 		// parameter nn is k-experiments (based from specs)
 		System.out.println("HypergeometricCoins!");
@@ -38,7 +38,7 @@ public class Controller {
 	
 	
 	// Multinomial
-	public void getMultinomial(float k, float size, float prob, String[] definitionOfSuccess)
+	public void getMultinomial(double k, double size, double[] prob)
 	{
 		System.out.println("MultinomialCoins!");
 	}
