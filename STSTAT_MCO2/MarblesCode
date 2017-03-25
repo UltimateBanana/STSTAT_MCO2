@@ -1,241 +1,533 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
-import umontreal.iro.lecuyer.probdist.BinomialDist;
-import umontreal.iro.lecuyer.probdist.HypergeometricDist;
-import umontreal.iro.lecuyer.probdist.NegativeBinomialDist;
-import umontreal.iro.lecuyer.probdistmulti.MultinomialDist;
+ import org.rosuda.REngine.REXPMismatchException;
+ import org.rosuda.REngine.Rserve.RConnection;
+ import org.rosuda.REngine.Rserve.RserveException;
+ import java.util.Collections;
+ import java.util.Scanner;
+ import java.util.ArrayList;
+ import umontreal.iro.lecuyer.probdist.BinomialDist;
+ import umontreal.iro.lecuyer.probdist.HypergeometricDist;
+ import umontreal.iro.lecuyer.probdist.NegativeBinomialDist;
+ import umontreal.iro.lecuyer.probdistmulti.MultinomialDist;
+ 
+public class MarblesMethod {
+	
+	private static String[] colors = {"silver","gold","bronze"};
+	private static Scanner sc = new Scanner(System.in);
+	
+	public static void binomialDistribution(int k)
+	{
+		int n =0;
+		float nColors=0;
+		int successColor=-1;
+		int success=-1;
+		RConnection connection = null;
+		float avgResult=0;
+		
+		System.out.println("Enter number of Trials");
+		while(!(n>0))
+		{
+			n= sc.nextInt();
+		}
+		
+		System.out.println("Enter number of Marble Colors (max 3)");
+		while(!(nColors>0 && nColors<=3))
+		{
+			nColors= sc.nextInt();
+		}	
+		
+		System.out.println("determine color that is considered a success");
+		for(int i =1; i<=nColors;i++)
+		{
+			System.out.println(i+ " - " + colors[i-1]);
+		}
+		
+		int choice = 0;
+		while(choice<1 || choice>nColors)
+		{
+			choice= sc.nextInt();
+			if(choice >0 &&choice <=nColors)
+			{
+				successColor = choice-1;
+				System.out.println("success color: " + colors[successColor]);
+			}else
+				System.out.println("invalid choice");
+		}
+		
+		System.out.println("How many " + colors[successColor] + " do you need to pick in order for it to be a success?");
+		while(!(success>=0))
+		{
+			success = sc.nextInt();
+		}
+		float m1=0;
+		float m2=0;
+		float m3=0;
 
-public class driver {
+		float total=0;
+		
+			for(int i = 0;i<nColors;i++)
+			{
+				System.out.println("How many " + colors[i] +" marbles are there?");		
+				if(i==0)
+				{
+					while(m1==0)
+					{
+						m1 = sc.nextFloat();
+					}
+					total += m1;
+				}
+				else if(i==1)
+				{
+					while(m2==0)
+					{
+						m2 = sc.nextFloat();
+					}
+					total += m2;
+				}
+				else if(i==2)
+				{
+					while(m3==0)
+					{
+						m3 = sc.nextFloat();
+					}
+					total += m3;
+				}
+			}
+		float prob1 = m1/total; //silver
+		float prob2 = m2/total; //gold
+		float prob3 = m3/total; //bronze
+		
+		float probability =0;
+		
+		if(successColor == 0)
+		{
+			probability = prob1;
+		}else if(successColor == 1)
+		{
+			probability = prob2;
+		}else if(successColor == 2)
+		{
+			probability = prob3;
+		}
+		
+		System.out.println("Ideal Outcome: ");
+		System.out.println("probability: " + probability);
+		BinomialDist binomial = new BinomialDist(n, probability); // parameters: n, p
+		System.out.println("Binomial Distribution: " + binomial.prob(success)); // parameter: x
+		System.out.println("Actual Outcome: ");
+		String rCode = "rbinom("+  k + "," + n + "," + probability + ")";
+		
+		try{
+			connection = new RConnection();
+			int[] result = connection.eval(rCode).asIntegers();
+			for(int i = 0;i<result.length;i++)
+			{
+				System.out.println("number of successes in experiment #" + (i+1)+ ": " + result[i]);
+				avgResult += result[i];
+			}
+			avgResult /= result.length;
+			
+			System.out.println("Average number of success: " + avgResult);
+			
+		} catch (RserveException e) {
+            e.printStackTrace();
+        }catch (REXPMismatchException e) {
+            e.printStackTrace();
+        } finally{
+            connection.close();
+        }
+		
+		
+	}
+	
+	public static void negativeBinomialDistribution(int k)
+	{
+		int n =0;
+		float nColors=0;
+		int successColor=-1;
+		int success=-1;
+		RConnection connection = null;
+		float avgResult=0;
+		
+		System.out.println("Enter number of Marble Colors (max 3)");
+		while(!(nColors>0 && nColors<=3))
+		{
+			nColors= sc.nextInt();
+		}	
+		/*System.out.println("determine how many colors are considered a success (max 3)");
+		while(!(success<=nColors && success > 0))
+		{
+			success= sc.nextInt();
+		}*/
+		System.out.println("determine color that is considered a success");
+		for(int i =1; i<=nColors;i++)
+		{
+			System.out.println(i+ " - " + colors[i-1]);
+		}
+
+		int choice = 0;
+		while(choice<1 || choice>nColors)
+		{
+			choice= sc.nextInt();
+			if(choice >0 &&choice <=nColors)
+			{
+				successColor = choice-1;
+				System.out.println("success color: " + colors[successColor]);
+			}else
+				System.out.println("invalid choice");
+		}
+		
+		System.out.println("How many "+ colors[successColor] +" marbles do you need to get?");
+		while(!(success>=0))
+		{
+			success = sc.nextInt();
+		}
+		int x=-1;
+		System.out.println("How many wrong marbles can you get?");
+		while(!(x>=0))
+		{
+			x= sc.nextInt();
+		}
+		
+		System.out.println("Ideal Outcome: ");
+		
+		NegativeBinomialDist negativeBinomial = new NegativeBinomialDist(success,1/nColors); // parameters: r, p
+		System.out.println("Negative Binomial Distribution: " + negativeBinomial.prob(x)); // parameter: x
+		
+		System.out.println("Actual Outcome: ");
+		String rCode = "rnbinom("+  k + "," + success + "," + (1/nColors) +")";
+		
+		try{
+			connection = new RConnection();
+			int[] result = connection.eval(rCode).asIntegers();
+			for(int i = 0;i<result.length;i++)
+			{
+				System.out.println("number of successes in experiment #" + (i+1)+ ": " + result[i]);
+				avgResult += result[i];
+			}
+			avgResult /= result.length;
+			
+			System.out.println("Average number of success: " + avgResult);
+			
+		} catch (RserveException e) {
+            e.printStackTrace();
+        }catch (REXPMismatchException e) {
+            e.printStackTrace();
+        } finally{
+            connection.close();
+        }
+		
+	}
+	
+	public static void hypergeometricDistribution( int k)
+	{
+		int n =0;
+		float nColors=0;
+		int successColor=-1;
+		int success=-1;
+		int selected=-1;
+		RConnection connection = null;
+		float avgResult=0;
+		
+		System.out.println("Enter number of Trials");
+		while(!(n>0))
+		{
+			n= sc.nextInt();
+		}
+		
+		System.out.println("Enter number of Marble Colors (max 3)");
+		while(!(nColors>0 && nColors<=3))
+		{
+			nColors= sc.nextInt();
+		}	
+		
+		System.out.println("determine color that will be selected");
+		for(int i =1; i<=nColors;i++)
+		{
+			System.out.println(i+ " - " + colors[i-1]);
+		}
+		
+		int choice = 0;
+		while(choice<1 || choice>nColors)
+		{
+			choice= sc.nextInt();
+			if(choice >0 &&choice <=nColors)
+			{
+				successColor = choice-1;
+				System.out.println("success color: " + colors[successColor]);
+			}else
+				System.out.println("invalid choice");
+		}
+		
+		System.out.println("How many " + colors[successColor] + " marbles are you going to need?");
+		while(!(success>=0))
+		{
+			success = sc.nextInt();
+		}
+		
+		System.out.println("How many marbles are you going to select?");
+		while(!(selected>=0))
+		{
+			selected = sc.nextInt();
+		}
+		float m1=0;
+		float m2=0;
+		float m3=0;
+
+		float total=0;
+		
+			for(int i = 0;i<nColors;i++)
+			{
+				System.out.println("How many " + colors[i] +" marbles are there?");		
+				if(i==0)
+				{
+					while(m1==0)
+					{
+						m1 = sc.nextFloat();
+					}
+					total += m1;
+				}
+				else if(i==1)
+				{
+					while(m2==0)
+					{
+						m2 = sc.nextFloat();
+					}
+					total += m2;
+				}
+				else if(i==2)
+				{
+					while(m3==0)
+					{
+						m3 = sc.nextFloat();
+					}
+					total += m3;
+				}
+			}
+			
+			
+			
+			
+			
+			try{connection = new RConnection();
+				
+				String rCode = "";
+				System.out.println("Ideal Outcome: ");
+				if(successColor == 0)
+				{	rCode = "dhyper(" + (int)success + "," + (int)total + "," + (int)selected + "," + m1 + ")"; 
+					float hypergeometric = (float)connection.eval(rCode).asDouble();
+					System.out.println("Hypergeometric Distribution: "+ hypergeometric);
+					//HypergeometricDist hypergeom = new HypergeometricDist(selected, (int)m1, (int)(m2+m3)); // parameters: k, N, n
+					//System.out.println("Hypergeometric Distribution: " + hypergeom.prob(success)); // parameter: x
+					rCode = "rhyper("+  k + "," + m1 + "," + (m2+m3) + "," + success + ")";
+					
+				}
+				if(successColor == 1)
+				{
+					rCode = "dhyper(" + (int)success + "," + (int)total + "," + (int)selected + "," + m2 + ")"; 
+					float hypergeometric = (float)connection.eval(rCode).asDouble();
+					System.out.println("Hypergeometric Distribution: "+ hypergeometric);
+					//HypergeometricDist hypergeom = new HypergeometricDist(selected, (int)m2, (int)(m1+m3)); // parameters: k, N, n
+					//System.out.println("Hypergeometric Distribution: " + hypergeom.prob(success)); // parameter: x
+					rCode = "rhyper("+  k + "," + m2 + "," + (m1+m3) + "," + success + ")";
+				}
+				if(successColor == 2)
+				{
+					rCode = "dhyper(" + (int)success + "," + (int)total + "," + (int)selected + "," + m3 + ")"; 
+					float hypergeometric = (float)connection.eval(rCode).asDouble();
+					System.out.println("Hypergeometric Distribution: "+ hypergeometric);
+					//HypergeometricDist hypergeom = new HypergeometricDist(selected, (int)m3, (int)(m1+m2)); // parameters: k, N, n
+					//System.out.println("Hypergeometric Distribution: " + hypergeom.prob(success)); // parameter: x
+					rCode = "rhyper("+  k + "," + m3 + "," + (m1+m2) + "," + success + ")";
+				}
+				
+				System.out.println("Actual Outcome: ");
+				
+				int[] result = connection.eval(rCode).asIntegers();
+				for(int i = 0;i<result.length;i++)
+				{
+					System.out.println("number of successes in experiment #" + (i+1)+ ": " + result[i]);
+					avgResult += result[i];
+				}
+				avgResult /= result.length;
+				
+				System.out.println("Average number of success: " + avgResult);
+				
+			} catch (RserveException e) {
+	            e.printStackTrace();
+	        }catch (REXPMismatchException e) {
+	            e.printStackTrace();
+	        } finally{
+	            connection.close();
+	        }
+			
+			
+		
+	}
+	
+	public static void multinomialDistribution(int k)
+	{
+		int n =0;
+		float nColors=0;
+		int successColor=-1;
+		int success=-1;
+		RConnection connection = null;
+		float avgResult=0;
+		float n1=0,n2=0,n3=0;
+		
+		System.out.println("Enter number of Trials");
+		while(!(n>0))
+		{
+			n= sc.nextInt();
+		}
+		
+		System.out.println("Enter number of Marble Colors (max 3)");
+		while(!(nColors>0 && nColors<=3))
+		{
+			nColors= sc.nextInt();
+		}
+		
+		float total=0;
+		float m1=0;
+		float m2=0;
+		float m3=0;
+		for(int i = 0;i<nColors;i++)
+		{
+			System.out.println("How many " + colors[i] +" marbles are there?");		
+			if(i==0)
+			{
+				while(m1==0)
+				{
+					m1 = sc.nextFloat();
+				}
+				total += m1;
+			}
+			else if(i==1)
+			{
+				while(m2==0)
+				{
+					m2 = sc.nextFloat();
+				}
+				total += m2;
+			}
+			else if(i==2)
+			{
+				while(m3==0)
+				{
+					m3 = sc.nextFloat();
+				}
+				total += m3;
+			}
+		}
+		float prob1 = m1/total; //silver
+		float prob2 = m2/total; //gold
+		float prob3 = m3/total; //bronze
+		
+		for(int i = 0;i<nColors;i++)
+		{
+			System.out.println("How many " + colors[i] +" marbles are you going to get?");		
+			if(i==0)
+			{
+				while(n1==0)
+				{
+					n1 = sc.nextFloat();
+				}
+				total += m1;
+			}
+			else if(i==1)
+			{
+				while(n2==0)
+				{
+					n2 = sc.nextFloat();
+				}
+				total += m2;
+			}
+			else if(i==2)
+			{
+				while(n3==0)
+				{
+					n3 = sc.nextFloat();
+				}
+				total += m3;
+			}
+		}
+		
+		double[] p = {prob1, prob2, prob3};
+		int[] nMult = {(int)n1,(int)n2,(int)n3};
+		
+		
+		
+		
+		try{
+			connection = new RConnection();
+			
+			String rCode = "dmultinom(c(" + (int)n1 + "," + (int)n2 + "," + (int)n3 + "),prob=c("+ prob1+ "," + prob2+ ","+prob3+ "))"; 
+			float multinom = (float)connection.eval(rCode).asDouble();
+			System.out.println("Hypergeometric Distribution: "+ multinom);
+			//MultinomialDist multinomial = new MultinomialDist(n, p); // parameters: n, p[]
+			//System.out.println("Multinomial Distribution: " + multinomial.prob(nMult)); // parameter: n[]
+			
+			System.out.println("Actual Outcome: ");
+			rCode = "rmultinom("+  k + ",size=" + n + ",prob=c("+ prob1+ "," + prob2+ ","+prob3+ "))";
+			double[][] result = connection.eval(rCode).asDoubleMatrix();
+			for(int j = 0; j<result.length;j++)
+			{
+				for(int i = 0;i<result[0].length;i++)
+				{
+					System.out.println("number of successes in experiment #" + (i+1)+ ": " + result[j][i]);
+					avgResult += result[j][i];
+				}
+			}
+			avgResult /= result.length*result[0].length;
+			
+			System.out.println("Average number of success: " + avgResult);
+			
+		} catch (RserveException e) {
+            e.printStackTrace();
+        }catch (REXPMismatchException e) {
+            e.printStackTrace();
+        } finally{
+            connection.close();
+        }
+	}
 	
 	public static void main(String[] args)
 	{
-		int k=0,n=0;
+		int k=0;
 		int kType=0;
-		int nColors=0;
-		int success=-1;
-		int trials = 0;
-		int size=0;
-		String[] colors = {"silver","gold","bronze"};
-		int successColor=-1;
-		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter number of Experiments");
-		while(!(k>=10 && k<=100000))
-		{
-			k= sc.nextInt();
-		}
+		int size=0;
+		
+		
+		
+		
 		System.out.println("Enter type of Experiment");
 		System.out.println("1- Binomial\n2- Negative Binomial\n3- Hypergeometric\n4- Multinomial");
 		while(!(kType>0 && kType<=4))
 		{
 			kType= sc.nextInt();
 		}
-		System.out.println("Enter number of Trials");
-		while(!(n>0))
-		{
-			n= sc.nextInt();
-		}
-		System.out.println("Enter number of Marble Colors (max 3)");
-		while(!(nColors>0 && nColors<=3))
-		{
-			nColors= sc.nextInt();
-		}				
-		
-		if(kType == 1)
-		{
-			/*System.out.println("determine how many colors are considered a success (max 3)");
-			while(!(success<=nColors && success > 0))
-			{
-				success= sc.nextInt();
-			}*/
-			System.out.println("determine color that is considered a success");
-			for(int i =1; i<=nColors;i++)
-			{
-				System.out.println(i+ " - " + colors[i-1]);
-			}
-	
-			int choice = 0;
-			while(choice<1 || choice>nColors)
-			{
-				choice= sc.nextInt();
-				if(choice >0 &&choice <=nColors)
-				{
-					successColor = choice-1;
-					System.out.println("success color: " + colors[successColor]);
-				}else
-					System.out.println("invalid choice");
-			}
-			
-			System.out.println("How many " + colors[successColor] + " do you need to pick in order for it to be a success?");
-			while(!(success>=0))
-			{
-				success = sc.nextInt();
-			}
-			float m1=0;
-			float m2=0;
-			float m3=0;
-
-			float total=0;
-			
-				for(int i = 0;i<nColors;i++)
-				{
-					System.out.println("How many " + colors[i] +" marbles are there?");		
-					if(i==0)
-					{
-						while(m1==0)
-						{
-							m1 = sc.nextFloat();
-						}
-						total += m1;
-					}
-					else if(i==1)
-					{
-						while(m2==0)
-						{
-							m2 = sc.nextFloat();
-						}
-						total += m2;
-					}
-					else if(i==2)
-					{
-						while(m3==0)
-						{
-							m3 = sc.nextFloat();
-						}
-						total += m3;
-					}
-				}
-			float prob1 = m1/total; //silver
-			float prob2 = m2/total; //gold
-			float prob3 = m3/total; //bronze
-			
-			float probability =0;
-			
-			if(successColor == 0)
-			{
-				probability = prob1;
-			}else if(successColor == 1)
-			{
-				probability = prob2;
-			}else if(successColor == 2)
-			{
-				probability = prob3;
-			}
-			
-			System.out.println("Ideal Outcome: ");
-			System.out.println("probability: " + probability);
-			BinomialDist binomial = new BinomialDist(n, probability); // parameters: n, p
-			System.out.println("Binomial Distribution: " + binomial.prob(success)); // parameter: x
-			
-			
-			System.out.println("Actual Outcome: ");
-			int totalInt = Math.round(total);
-			int m1Int = Math.round(m1);
-			int m2Int = Math.round(m2);
-			int m3Int = Math.round(m3);
-			ArrayList<String> marbles = new ArrayList();
-			
-			for(int i=0; i<m1;i++){
-				marbles.add("silver");
-			}
-			for(int i=0; i<m2;i++){
-				marbles.add("gold");
-			}
-			for(int i=0; i<m1;i++){
-				marbles.add("bronze");
-			}
-			
-			int successCounter=0;
-			int failCounter = 0;
-			int silverCounter=0;
-			int goldCounter=0;
-			int bronzeCounter=0;
-			
-			for(int i=0; i<k; i++)//# of experiments
-			{
-				Collections.shuffle(marbles); // shuffle marbles
-				for(int j=0;j<n;j++)//number of trials
-				{
-					if(marbles.get(j).equals("silver"))
-					{
-						silverCounter++;
-					}else if(marbles.get(j).equals("gold"))
-					{
-						goldCounter++;
-					}else if(marbles.get(j).equals("bronze"))
-					{
-						bronzeCounter++;
-					}
 					
-					System.out.println((j+1) + " - " + marbles.get(j));
-				}
-				System.out.println("# of silver picked: " + silverCounter);
-				System.out.println("# of gold picked: " + goldCounter);
-				System.out.println("# of bronze picked: " + bronzeCounter);
-				if(successColor == 0)
-				{
-					if(silverCounter ==success)
-					{
-						successCounter++;
-						System.out.println("Experiment #" +(i+1)+ " success");
-					}else{
-						failCounter++;
-						System.out.println("Experiment #" +(i+1)+ " fail");
-					}
-				}else if(successColor == 1)
-				{
-					if(goldCounter ==success)
-					{
-						successCounter++;
-						System.out.println("Experiment #" +(i+1)+ " success");
-					}else{
-						failCounter++;
-						System.out.println("Experiment #" +(i+1)+ " fail");
-					}
-				}
-				else if(successColor == 2)
-				{
-					if(bronzeCounter ==success)
-					{
-						successCounter++;
-						System.out.println("Experiment #" +(i+1)+ " success");
-					}else
-					{
-						failCounter++;
-						System.out.println("Experiment #" +(i+1)+ " fail");
-					}
-				}
-				
-
-				System.out.println("total number of success: " + successCounter);
-				System.out.println("total number of fail: " + failCounter);
-				silverCounter=0;
-				goldCounter=0;
-				bronzeCounter=0;
-			}
-			
-			
-			
-		}else if(kType == 2)
+		System.out.println("Enter number of Experiments");
+		while(!(k>=10 && k<=100000))
 		{
-			NegativeBinomialDist negativeBinomial = new NegativeBinomialDist(n,1); // parameters: r, p
-			System.out.println("Negative Binomial Distribution: " + negativeBinomial.prob(success)); // parameter: x
-		}else if (kType == 3)
-		{
-			HypergeometricDist hypergeom = new HypergeometricDist(5, 10, 2); // parameters: k, N, n
-			System.out.println("Hypergeometric Distribution: " + hypergeom.prob(1)); // parameter: x
-		}else if (kType == 4)
-		{
-			double[] p = {0.25, 0.25, 0.25, 0.25};
-			int[] nMult = {1, 1, 1, 2};
-			MultinomialDist multinomial = new MultinomialDist(5, p); // parameters: n, p[]
-			System.out.println("Multinomial Distribution: " + multinomial.prob(nMult)); // parameter: n[]
+			k= sc.nextInt();
 		}
 		
-		
-		
-		
-		
+		if(kType== 1)
+		{
+			binomialDistribution(k);
+		}
+		else if(kType== 2)
+		{
+			negativeBinomialDistribution(k);
+		}
+		else if(kType== 3)
+		{
+			hypergeometricDistribution(k);
+		}
+		else if(kType== 4)
+		{
+			multinomialDistribution(k);
+		}
 	}
 }
