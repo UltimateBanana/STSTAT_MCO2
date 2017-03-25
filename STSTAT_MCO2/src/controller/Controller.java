@@ -30,7 +30,7 @@ public class Controller {
 	}
 	
 	// Hypergeometric
-	public void getHypergeometric(float nn, float m, float n, float k)
+	public void getHypergeometric(float nn, float m, float n, float k, String definitionOfSuccess)
 	{
 		// parameter nn is k-experiments (based from specs)
 		System.out.println("HypergeometricCoins!");
@@ -38,7 +38,7 @@ public class Controller {
 	
 	
 	// Multinomial
-	public void getMultinomial(float k, float size, float prob)
+	public void getMultinomial(float k, float size, float prob, String[] definitionOfSuccess)
 	{
 		System.out.println("MultinomialCoins!");
 	}
