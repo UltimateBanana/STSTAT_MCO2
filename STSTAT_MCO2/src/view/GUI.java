@@ -24,13 +24,14 @@ public class GUI {
 
 	public JFrame frame;
 	public Controller controller;
+	private JTabbedPane tabbedPane;
 	
 	// Binomial Distribution
 	private JPanel panelBinomial;
 	private JLabel lblNumberOfTrials;
-	private JLabel lblNumberOfSuccess;
+	private JLabel lblKExperiments;
 	private JTextField textFieldNumberOfTrials;
-	private JTextField textFieldNumberOfSuccesses;
+	private JTextField textFieldKExperiments;
 	// Coin
 	private JPanel panelBiCoin;
 	private JRadioButton rdbtnBiHeads;
@@ -39,12 +40,10 @@ public class GUI {
 	private JLabel lblDefinitionOfSuccessCoin;
 	// Cards
 	private JPanel panelBiCards;
+	private JLabel lblNumberOfCards_1;
+	private JTextField textField_29;
 	private JLabel labelDefinitionOfSuccessCards;
-	private JRadioButton rdbtnBiDiamonds;
-	private JRadioButton rdbtnBiSpades;
-	private JRadioButton rdbtnBiHearts;
-	private JRadioButton rdbtnBiClubs;
-	private ButtonGroup group2;
+//	private ButtonGroup group2;
 	// Marbles
 	private JPanel panelBiMarbles;
 	private JLabel labelDefinitionOfSuccessMarbles;
@@ -63,10 +62,10 @@ public class GUI {
 	
 	// Negative Binomial Distribution
 	private JPanel panelNegativeBinomial;
-	private JLabel label;
-	private JTextField textField_1;
 	private JLabel label_1;
 	private JTextField textField_2;
+	private JLabel lblNumberOfKexperiment;
+	private JTextField textField_30;
 	// Coin
 	private JPanel panel;
 	private JRadioButton radioButton;
@@ -76,11 +75,9 @@ public class GUI {
 	// Cards
 	private JPanel panel_1;
 	private JLabel label_3;
-	private JRadioButton radioButton_2;
-	private JRadioButton radioButton_3;
-	private JRadioButton radioButton_4;
-	private JRadioButton radioButton_5;
-	private ButtonGroup group5;
+	private JLabel lblNumberOfCards;
+	private JTextField textField_1;
+//	private ButtonGroup group5;
 	// Marbles
 	private JPanel panel_2;
 	private JLabel label_4;
@@ -201,6 +198,9 @@ public class GUI {
 	private JRadioButton rdbtnDeckOfCards;
 	private JRadioButton rdbtnMarbles;
 	private ButtonGroup group11;
+	
+	
+	
 
 	/**
 	 * Launch the application.
@@ -236,7 +236,7 @@ public class GUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 59, 661, 529);
 		frame.getContentPane().add(tabbedPane);
 		
@@ -256,14 +256,14 @@ public class GUI {
 		panelBinomial.add(textFieldNumberOfTrials);
 		textFieldNumberOfTrials.setColumns(10);
 		
-		lblNumberOfSuccess = new JLabel("Number of Successes:");
-		lblNumberOfSuccess.setBounds(10, 42, 132, 14);
-		panelBinomial.add(lblNumberOfSuccess);
+		lblKExperiments = new JLabel("Number of k-experiments:");
+		lblKExperiments.setBounds(10, 42, 145, 14);
+		panelBinomial.add(lblKExperiments);
 		
-		textFieldNumberOfSuccesses = new JTextField();
-		textFieldNumberOfSuccesses.setBounds(152, 42, 86, 20);
-		panelBinomial.add(textFieldNumberOfSuccesses);
-		textFieldNumberOfSuccesses.setColumns(10);
+		textFieldKExperiments = new JTextField();
+		textFieldKExperiments.setBounds(152, 42, 86, 20);
+		panelBinomial.add(textFieldKExperiments);
+		textFieldKExperiments.setColumns(10);
 		
 		// Coins
 		panelBiCoin = new JPanel();
@@ -303,31 +303,16 @@ public class GUI {
 		labelDefinitionOfSuccessCards.setBounds(10, 20, 136, 14);
 		panelBiCards.add(labelDefinitionOfSuccessCards);
 		
-		rdbtnBiDiamonds = new JRadioButton("Diamonds");
-		rdbtnBiDiamonds.setBackground(Color.WHITE);
-		rdbtnBiDiamonds.setBounds(10, 41, 92, 23);
-		panelBiCards.add(rdbtnBiDiamonds);
+		lblNumberOfCards_1 = new JLabel("Number of Cards:");
+		lblNumberOfCards_1.setBounds(10, 45, 102, 14);
+		panelBiCards.add(lblNumberOfCards_1);
 		
-		rdbtnBiSpades = new JRadioButton("Spades");
-		rdbtnBiSpades.setBackground(Color.WHITE);
-		rdbtnBiSpades.setBounds(10, 69, 92, 23);
-		panelBiCards.add(rdbtnBiSpades);
+		textField_29 = new JTextField();
+		textField_29.setBounds(122, 45, 86, 20);
+		panelBiCards.add(textField_29);
+		textField_29.setColumns(10);
 		
-		rdbtnBiHearts = new JRadioButton("Hearts");
-		rdbtnBiHearts.setBackground(Color.WHITE);
-		rdbtnBiHearts.setBounds(127, 41, 76, 23);
-		panelBiCards.add(rdbtnBiHearts);
-		
-		rdbtnBiClubs = new JRadioButton("Clubs");
-		rdbtnBiClubs.setBackground(Color.WHITE);
-		rdbtnBiClubs.setBounds(127, 69, 76, 23);
-		panelBiCards.add(rdbtnBiClubs);
-		
-		group2 = new ButtonGroup();
-		group2.add(rdbtnBiClubs);
-		group2.add(rdbtnBiDiamonds);
-		group2.add(rdbtnBiHearts);
-		group2.add(rdbtnBiSpades);
+//		group2 = new ButtonGroup();
 		
 		// Marbles
 		panelBiMarbles = new JPanel();
@@ -395,33 +380,27 @@ public class GUI {
 			  public void actionPerformed(ActionEvent e) { 
 				  if(rdbtnTossingACoin.isSelected())
 				  {
-					  float x = Float.parseFloat(textFieldNumberOfSuccesses.getText());
+					  float x = Float.parseFloat(textFieldKExperiments.getText());
 					  float size = Float.parseFloat(textFieldNumberOfTrials.getText());
 					  float prob = 1/2;
 					  
 					  if(rdbtnBiHeads.isSelected())
-						  controller.getBinomialCoins(x, size, prob, rdbtnBiHeads.getText());
+						  controller.getBinomial(x, size, prob, rdbtnBiHeads.getText());
 					  else if(rdbtnBiTails.isSelected())
-						  controller.getBinomialCoins(x, size, prob, rdbtnBiTails.getText());
+						  controller.getBinomial(x, size, prob, rdbtnBiTails.getText());
 				  }
 				  else if(rdbtnDeckOfCards.isSelected())
 				  {
-					  float x = Float.parseFloat(textFieldNumberOfSuccesses.getText());
+					  float x = Float.parseFloat(textFieldKExperiments.getText());
 					  float size = Float.parseFloat(textFieldNumberOfTrials.getText());
-					  float prob = 13/52;
+					  float numCards = Float.parseFloat(textField_29.getText());
+					  float prob = numCards/52;
 					  
-					  if(rdbtnBiDiamonds.isSelected())
-						  controller.getBinomialCards(x, size, prob, rdbtnBiDiamonds.getText());
-					  else if(rdbtnBiSpades.isSelected())
-						  controller.getBinomialCards(x, size, prob, rdbtnBiSpades.getText());
-					  else if(rdbtnBiHearts.isSelected())
-						  controller.getBinomialCards(x, size, prob, rdbtnBiHearts.getText());
-					  else if(rdbtnBiClubs.isSelected())
-						  controller.getBinomialCards(x, size, prob, rdbtnBiClubs.getText());
+					  controller.getBinomial(x, size, prob, "Number of successful cards in the deck");
 				  }
 				  else if(rdbtnMarbles.isSelected())
 				  {
-					  float x = Float.parseFloat(textFieldNumberOfSuccesses.getText());
+					  float x = Float.parseFloat(textFieldKExperiments.getText());
 					  float size = Float.parseFloat(textFieldNumberOfTrials.getText());
 					  float numGold = Float.parseFloat(textFieldBiGold.getText());
 					  float numSilver = Float.parseFloat(textFieldBiSilver.getText());
@@ -430,17 +409,17 @@ public class GUI {
 					  if(rdbtnBiGold.isSelected())
 					  {
 						  float prob = numGold/(numSilver + numBronze);
-						  controller.getBinomialMarbles(x, size, prob, rdbtnBiGold.getText());
+						  controller.getBinomial(x, size, prob, rdbtnBiGold.getText());
 					  }
 					  else if(rdbtnBiSilver.isSelected())
 					  {
 						  float prob = numSilver/(numGold + numBronze);
-						  controller.getBinomialMarbles(x, size, prob, rdbtnBiSilver.getText());
+						  controller.getBinomial(x, size, prob, rdbtnBiSilver.getText());
 					  }
 					  else if(rdbtnBiBronze.isSelected())
 					  {
 						  float prob = numBronze/(numSilver + numGold);
-						  controller.getBinomialMarbles(x, size, prob, rdbtnBiBronze.getText());
+						  controller.getBinomial(x, size, prob, rdbtnBiBronze.getText());
 					  }
 				  }
 			  } 
@@ -451,28 +430,19 @@ public class GUI {
 		panelBinomial.add(btnClear);
 		
 		
-		// Negative Binonmial
+		// Negative Binomial
 		panelNegativeBinomial = new JPanel();
 		panelNegativeBinomial.setBackground(Color.WHITE);
 		tabbedPane.addTab("Negative Binomial Distribution", null, panelNegativeBinomial, null);
 		panelNegativeBinomial.setLayout(null);
 		
-		label = new JLabel("Number of Trials:");
-		label.setBounds(10, 14, 132, 14);
-		panelNegativeBinomial.add(label);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(152, 14, 86, 20);
-		panelNegativeBinomial.add(textField_1);
-		
 		label_1 = new JLabel("Number of Successes:");
-		label_1.setBounds(10, 45, 132, 14);
+		label_1.setBounds(10, 11, 132, 14);
 		panelNegativeBinomial.add(label_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(152, 45, 86, 20);
+		textField_2.setBounds(152, 11, 86, 20);
 		panelNegativeBinomial.add(textField_2);
 		
 		// Coin
@@ -513,31 +483,16 @@ public class GUI {
 		label_3.setBounds(10, 20, 144, 14);
 		panel_1.add(label_3);
 		
-		radioButton_2 = new JRadioButton("Diamonds");
-		radioButton_2.setBackground(Color.WHITE);
-		radioButton_2.setBounds(10, 41, 86, 23);
-		panel_1.add(radioButton_2);
+		lblNumberOfCards = new JLabel("Number of Cards:");
+		lblNumberOfCards.setBounds(10, 46, 109, 14);
+		panel_1.add(lblNumberOfCards);
 		
-		radioButton_3 = new JRadioButton("Spades");
-		radioButton_3.setBackground(Color.WHITE);
-		radioButton_3.setBounds(10, 69, 86, 23);
-		panel_1.add(radioButton_3);
+		textField_1 = new JTextField();
+		textField_1.setBounds(129, 43, 86, 20);
+		panel_1.add(textField_1);
+		textField_1.setColumns(10);
 		
-		radioButton_4 = new JRadioButton("Hearts");
-		radioButton_4.setBackground(Color.WHITE);
-		radioButton_4.setBounds(127, 41, 72, 23);
-		panel_1.add(radioButton_4);
-		
-		radioButton_5 = new JRadioButton("Clubs");
-		radioButton_5.setBackground(Color.WHITE);
-		radioButton_5.setBounds(127, 69, 72, 23);
-		panel_1.add(radioButton_5);
-		
-		group5 = new ButtonGroup();
-		group5.add(radioButton_2);
-		group5.add(radioButton_3);
-		group5.add(radioButton_4);
-		group5.add(radioButton_5);
+//		group5 = new ButtonGroup();
 		
 		// Marbles
 		panel_2 = new JPanel();
@@ -621,6 +576,15 @@ public class GUI {
 		btnClear_2 = new JButton("Clear");
 		btnClear_2.setBounds(364, 445, 89, 23);
 		panelNegativeBinomial.add(btnClear_2);
+		
+		lblNumberOfKexperiment = new JLabel("Number of k-experiments:");
+		lblNumberOfKexperiment.setBounds(10, 36, 144, 14);
+		panelNegativeBinomial.add(lblNumberOfKexperiment);
+		
+		textField_30 = new JTextField();
+		textField_30.setColumns(10);
+		textField_30.setBounds(152, 36, 86, 20);
+		panelNegativeBinomial.add(textField_30);
 		
 		
 		// Hypergeometric
