@@ -43,7 +43,7 @@ public class Hypergeometric {
             x = connection.eval("rhyper("+nn+","+m+","+n+","+k+")");
             int[] results = x.asIntegers();
             
-            log += "nn = " + nn + "\r\nm = " + m + "\r\nn = " + n + "\r\nk = " + k + "\r\n";
+            log += "nn = " + nn + "\r\nm = " + m + "\r\nn = " + n + "\r\nk = " + k + "\r\ndefinition of success = " + definitionOfSuccess + "\r\n";
             
             //Averaging the actual results
             double average=0;

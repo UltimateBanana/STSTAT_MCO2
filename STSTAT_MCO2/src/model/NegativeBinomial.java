@@ -40,7 +40,7 @@ public class NegativeBinomial {
             x = connection.eval("rnbinom("+k+","+size+","+prob+")");
             int[] results = x.asIntegers();
             
-            log += "k = " + k + "\r\nsize = " + size + "\r\nprob = " + prob + "\r\n";
+            log += "k = " + k + "\r\nsize = " + size + "\r\nprob = " + prob + "\r\ndefinition of success = " + definitionOfSuccess + "\r\n";
             
             
             //Averaging the actual results
