@@ -33,15 +33,18 @@ public class Binomial {
             REXP x;
             x = connection.eval("rbinom("+k+","+size+","+prob+")");
             int[] results = x.asIntegers();
+            
             //Averaging the actual results
             double average=0;
-            for (int i = 0; i < results.length; i++) {
+            for (int i = 0; i < results.length; i++) 
+            {
                 //Displaying experiment results
             	System.out.println("Experiment #"+i+" result: "+results[i]+" successes");
                 average+=results[i];
              }
             average = average/results.length;
             System.out.println("The average successes is "+average);
+            
             //Actual and Ideal Probabilities
             double actual = average/size;
             System.out.println("The actual probability is "+actual);

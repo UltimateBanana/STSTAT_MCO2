@@ -32,27 +32,29 @@ public class Hypergeometric {
              * on default port 6311
              */
             connection = new RConnection();
+            
             //R execution
             REXP x;
             x = connection.eval("rhyper("+nn+","+m+","+n+","+k+")");
             int[] results = x.asIntegers();
+            
             //Averaging the actual results
             double average=0;
-            for (int i = 0; i < results.length; i++) {
+            for (int i = 0; i < results.length; i++) 
+            {
                 //Displaying experiment results
             	System.out.println("Experiment #"+i+" result: "+results[i]+" successes");
-                average+=results[i];
+                average += results[i];
              }
-            
-            
             average = average/results.length;
             System.out.println("The average successes is "+average);
             
             //Actual and Ideal Probabilities
-            //double actual = ?;
-            //System.out.println("The actual probability is "+actual);
-            //double ideal = ?;
-            //System.out.println("The ideal probability is "+ideal);
+//            double actual = ;
+//            System.out.println("The actual probability is "+actual);
+            x = connection.eval("phyper("+nn+","+m+","+n+","+k+")");
+            double ideal = x.asDouble();
+            System.out.println("The ideal probability is "+ideal);
             
         } 
         catch (RserveException e) 

@@ -43,8 +43,10 @@ public class NegativeBinomial {
             	System.out.println("Experiment #"+i+" result: "+results[i]+" failures");
                 average+=results[i];
              }
+            
             average = average/results.length;
             System.out.println("The average failures is "+average);
+            
             //Actual and Ideal Probabilities
             double actual = 1-(average/(average+size));
             System.out.println("The actual probability is "+actual);
