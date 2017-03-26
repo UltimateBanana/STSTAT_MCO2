@@ -12,6 +12,7 @@ public class NegativeBinomial {
 	double size;
 	double prob;
 	String definitionOfSuccess;
+	String log;
 	
 	public NegativeBinomial(double k, double size, double prob, String definitionOfSuccess)
 	{
@@ -19,9 +20,10 @@ public class NegativeBinomial {
 		this.size = size;
 		this.prob = prob;
 		this.definitionOfSuccess = definitionOfSuccess;
+		log = "Negative Binomial Distribution \r\n\r\n"; // for the text file
 	}
 	
-	public void execute()
+	public String execute()
 	{
 		RConnection connection = null;
         try 
@@ -35,23 +37,40 @@ public class NegativeBinomial {
             x = connection.eval("rnbinom("+k+","+size+","+prob+")");
             int[] results = x.asIntegers();
             
+            log += "k = " + k + "\r\nsize = " + size + "\r\nprob = " + prob + "\r\n";
+            
             
             //Averaging the actual results
             double average=0;
             for (int i = 0; i < results.length; i++) {
                 //Displaying experiment results
-            	System.out.println("Experiment #"+i+" result: "+results[i]+" failures");
+            	log += "Experiment #"+i+" result: "+results[i]+" failures"+"\r\n";
                 average+=results[i];
              }
             
             average = average/results.length;
-            System.out.println("The average failures is "+average);
+            log += "The average failures is "+average+"\r\n";
             
             //Actual and Ideal Probabilities
             double actual = 1-(average/(average+size));
-            System.out.println("The actual probability is "+actual);
+            log += "The actual probability is "+actual+"\r\n";
             double ideal = prob;
-            System.out.println("The ideal probability is "+ideal);
+            log += "The ideal probability is "+ideal+"\r\n";
+            
+            // Graphing for Actual Outcome Negative Binomial
+            String rCode = "";
+            rCode = "setwd(\"~/\")";//set directory
+			connection.eval(rCode);
+			rCode = "getwd()";
+			connection.eval(rCode);
+			rCode = "y<- "+"rnbinom("+  k + "," + size + "," + prob +")";
+			connection.eval(rCode);
+			rCode = "png(filename = \"ActualOutcomeNegativeBinomialDistribution"+k+"Experiments"+size+"Size"+prob+"probability.png\")";
+			connection.eval(rCode);
+			rCode = "barplot(table(y))";
+			connection.eval(rCode);				
+			rCode = "dev.off()";
+			connection.eval(rCode);
         } 
         catch (RserveException e) 
         {
@@ -65,6 +84,8 @@ public class NegativeBinomial {
         {
             connection.close();
         }
+        
+        return log;
 	}
 
 }

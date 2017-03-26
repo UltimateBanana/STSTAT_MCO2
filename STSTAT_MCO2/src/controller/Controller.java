@@ -4,6 +4,7 @@ import model.Binomial;
 import model.Hypergeometric;
 import model.Multinomial;
 import model.NegativeBinomial;
+import model.WriteFile;
 
 public class Controller {
 
@@ -11,52 +12,69 @@ public class Controller {
 	NegativeBinomial negativeBinomial;
 	Hypergeometric hypergeometric;
 	Multinomial multinomial;
+	WriteFile fileWriter;
+	
+	int indexTextFile;
+	String log;
 	
 	public Controller(){
-		
+		log = "";
+		indexTextFile = 1;
 	}
 	
 	// Binomial
 	public void getBinomial(double k, double size, double prob, String definitionOfSuccess)
 	{
-		System.out.println("Binomial!");
 		// Call the Binomial method here
 		binomial = new Binomial(k,size,prob,definitionOfSuccess);
-		System.out.println("created "+k+size+prob);
-		binomial.execute();
+		log = binomial.execute();
+		System.out.println(log);
 		System.out.println();
+		
+		fileWriter = new WriteFile(indexTextFile, log);
+		fileWriter.write();
+		indexTextFile++;
 	}
 
 	// Negative Binomial
 	public void getNegativeBinomial(double k, double size, double prob, String definitionOfSuccess)
 	{
-		System.out.println("NegativeBinomial!");
 		negativeBinomial = new NegativeBinomial(k,size,prob,definitionOfSuccess);
-		System.out.println("created "+k+size+prob);
-		negativeBinomial.execute();
+		log = negativeBinomial.execute();
+		System.out.println(log);
 		System.out.println();
+		
+		fileWriter = new WriteFile(indexTextFile, log);
+		fileWriter.write();
+		indexTextFile++;
 	}
 	
 	// Hypergeometric
 	public void getHypergeometric(double nn, double m, double n, double k, String definitionOfSuccess)
 	{
 		// parameter nn is k-experiments (based from specs)
-		System.out.println("Hypergeometric!");
 		hypergeometric = new Hypergeometric(nn,m,n,k,definitionOfSuccess);
-		System.out.println("created "+nn+m+n+k+definitionOfSuccess);
-		hypergeometric.execute();
+		log = hypergeometric.execute();
+		System.out.println(log);
 		System.out.println();
+		
+		fileWriter = new WriteFile(indexTextFile, log);
+		fileWriter.write();
+		indexTextFile++;
 	}
 	
 	
 	// Multinomial
 	public void getMultinomial(double k, double size, double[] prob)
 	{
-		System.out.println("MultinomialCoins!");
 		multinomial = new Multinomial(k,size,prob);
-//		System.out.println("created "+k+size+prob[0]+prob[1]+prob[2]+prob[3]);
-		multinomial.execute();
+		log = multinomial.execute();
+		System.out.println(log);
 		System.out.println();
+		
+		fileWriter = new WriteFile(indexTextFile, log);
+		fileWriter.write();
+		indexTextFile++;
 	}
 	
 }
