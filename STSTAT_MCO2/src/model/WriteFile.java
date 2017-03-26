@@ -11,16 +11,14 @@ import javax.swing.JFileChooser;
 
 public class WriteFile {
 	
-	int indexTextFile;
 	String log;
 	
-	public WriteFile(int indexTextFile, String log)
+	public WriteFile(String log)
 	{
-		this.indexTextFile = indexTextFile;
 		this.log = log;
 	}
 	
-	public void write()
+	public String write()
 	{
 		BufferedWriter writer = null;
 		JFileChooser  chooser= new JFileChooser();
@@ -39,6 +37,8 @@ public class WriteFile {
 		{
 			System.out.println(e);
 		}
+		
+		return filename;
 	}
 
 }

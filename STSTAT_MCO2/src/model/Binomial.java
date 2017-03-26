@@ -14,6 +14,8 @@ public class Binomial {
 	String definitionOfSuccess;
 	String log;
 	
+	String indexTextFile;
+	
 	public Binomial(double k, double size, double prob, String definitionOfSuccess)
 	{
 		this.k = k;
@@ -21,6 +23,7 @@ public class Binomial {
 		this.prob = prob;
 		this.definitionOfSuccess = definitionOfSuccess;
 		log = "Binomial Distribution \r\n\r\n"; // for the text file
+		indexTextFile = "";
 	}
 	
 	public String execute()
@@ -55,20 +58,6 @@ public class Binomial {
             double ideal = prob;
             log += "The ideal probability is "+ideal+"\r\n";
             
-            // Graphing for Actual Outcome Binomial
-            String rCode = "";
-			rCode = "setwd(\"~/\")";//set directory
-			connection.eval(rCode);
-			rCode = "getwd()";
-			connection.eval(rCode);
-			rCode = "y<- "+"rbinom("+  k + "," + size + "," + prob + ")";
-			connection.eval(rCode);
-			rCode = "png(filename = \"ActualOutcomeBinomialDistribution"+k+"Experiments"+size+"Size"+prob+"probability.png\")";
-			connection.eval(rCode);
-			rCode = "barplot(table(y))";
-			connection.eval(rCode);				
-			rCode = "dev.off()";
-			connection.eval(rCode);
         } 
         catch (RserveException e) 
         {
@@ -84,6 +73,57 @@ public class Binomial {
         }
         
         return log;
+	}
+	
+	public void createGraphs(String indexTextFile)
+	{
+		RConnection connection = null;
+
+        try 
+        {
+            /* Create a connection to Rserve instance running
+             * on default port 6311
+             */
+            connection = new RConnection();
+
+            // Graphing for Actual Outcome Binomial
+            String rCode = "";
+    		rCode = "setwd(\"~/\")";//set directory
+    		connection.eval(rCode);
+    		rCode = "getwd()";
+    		connection.eval(rCode);
+    		rCode = "y<- "+"rbinom("+  k + "," + size + "," + prob + ")";
+    		connection.eval(rCode);
+    		rCode = "png(filename = \""+indexTextFile+"-Actual.png\")";
+    		connection.eval(rCode);
+    		rCode = "barplot(table(y))";
+    		connection.eval(rCode);				
+    		rCode = "dev.off()";
+    		connection.eval(rCode);
+    		
+    		// Graphing for Ideal Outcome Binomial
+    		rCode = "setwd(\"~/\")";//set directory
+    		connection.eval(rCode);
+    		rCode = "getwd()";
+    		connection.eval(rCode);
+    		rCode = "x<- "+"dbinom(0:"+  k + "," + size + "," + prob + ")";
+    		connection.eval(rCode);
+    		rCode = "png(filename = \""+indexTextFile+"-Ideal.png\")";
+    		connection.eval(rCode);
+    		rCode = "barplot(table(x))";
+    		connection.eval(rCode);				
+    		rCode = "dev.off()";
+    		connection.eval(rCode);
+        } 
+        catch (RserveException e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            connection.close();
+        }
+		
 	}
 
 }

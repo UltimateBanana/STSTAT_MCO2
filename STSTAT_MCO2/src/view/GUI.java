@@ -191,6 +191,24 @@ public class GUI {
 	private JTextField textField_21;
 	private JLabel lblNumberOfSelected_3;
 	private JTextField textField_34;
+	private JTextField textField_35;
+	private JLabel lblNumberOfSelected_6;
+	private JLabel lblNumberOfSelected_5;
+	private JLabel lblNumberOfSelected_4;
+	private JTextField textField_36;
+	private JTextField textField_37;
+	private JLabel lblNumberOfSelected_7;
+	private JLabel lblNumberOfSelected_8;
+	private JLabel lblNumberOfSelected_9;
+	private JLabel lblNumberOfSelected_10;
+	private JTextField textField_38;
+	private JTextField textField_39;
+	private JTextField textField_40;
+	private JTextField textField_41;
+	private JLabel lblNumberOfSelected_11;
+	private JLabel lblNumberOfSelected_12;
+	private JTextField textField_42;
+	private JTextField textField_43;
 	
 	
 	
@@ -990,6 +1008,24 @@ public class GUI {
 		textField_28.setBounds(180, 45, 73, 20);
 		panel_6.add(textField_28);
 		
+		lblNumberOfSelected_11 = new JLabel("Number of Selected Heads:");
+		lblNumberOfSelected_11.setBounds(283, 22, 198, 14);
+		panel_6.add(lblNumberOfSelected_11);
+		
+		lblNumberOfSelected_12 = new JLabel("Number of Selected Tails:");
+		lblNumberOfSelected_12.setBounds(283, 48, 198, 14);
+		panel_6.add(lblNumberOfSelected_12);
+		
+		textField_42 = new JTextField();
+		textField_42.setBounds(491, 22, 86, 20);
+		panel_6.add(textField_42);
+		textField_42.setColumns(10);
+		
+		textField_43 = new JTextField();
+		textField_43.setBounds(491, 45, 86, 20);
+		panel_6.add(textField_43);
+		textField_43.setColumns(10);
+		
 		// Cards
 		panel_7 = new JPanel();
 		panel_7.setLayout(null);
@@ -999,21 +1035,21 @@ public class GUI {
 		panelMultinomial.add(panel_7);
 		
 		lblMultinomKExperiments = new JLabel("Number of k-experiments:");
-		lblMultinomKExperiments.setBounds(292, 21, 161, 14);
+		lblMultinomKExperiments.setBounds(58, 119, 161, 14);
 		panel_7.add(lblMultinomKExperiments);
 		
 		lblNumberOfTrials_1 = new JLabel("Number of Trials:");
-		lblNumberOfTrials_1.setBounds(292, 47, 161, 14);
+		lblNumberOfTrials_1.setBounds(331, 116, 161, 14);
 		panel_7.add(lblNumberOfTrials_1);
 		
 		textField_23 = new JTextField();
-		textField_23.setBounds(463, 18, 73, 20);
+		textField_23.setBounds(229, 116, 73, 20);
 		panel_7.add(textField_23);
 		textField_23.setColumns(10);
 		
 		textField_24 = new JTextField();
 		textField_24.setColumns(10);
-		textField_24.setBounds(463, 44, 73, 20);
+		textField_24.setBounds(502, 113, 73, 20);
 		panel_7.add(textField_24);
 		
 		lblProbabilityForGroup = new JLabel("Probability for Group1:");
@@ -1052,6 +1088,42 @@ public class GUI {
 		textField_20.setBounds(177, 88, 86, 20);
 		panel_7.add(textField_20);
 		
+		lblNumberOfSelected_7 = new JLabel("Number of Selected for Group1:");
+		lblNumberOfSelected_7.setBounds(284, 15, 195, 14);
+		panel_7.add(lblNumberOfSelected_7);
+		
+		lblNumberOfSelected_8 = new JLabel("Number of Selected for Group2:");
+		lblNumberOfSelected_8.setBounds(284, 38, 195, 14);
+		panel_7.add(lblNumberOfSelected_8);
+		
+		lblNumberOfSelected_9 = new JLabel("Number of Selected for Group3:");
+		lblNumberOfSelected_9.setBounds(284, 63, 195, 14);
+		panel_7.add(lblNumberOfSelected_9);
+		
+		lblNumberOfSelected_10 = new JLabel("Number of Selected for Group4:");
+		lblNumberOfSelected_10.setBounds(284, 88, 195, 14);
+		panel_7.add(lblNumberOfSelected_10);
+		
+		textField_38 = new JTextField();
+		textField_38.setColumns(10);
+		textField_38.setBounds(489, 85, 86, 20);
+		panel_7.add(textField_38);
+		
+		textField_39 = new JTextField();
+		textField_39.setColumns(10);
+		textField_39.setBounds(489, 60, 86, 20);
+		panel_7.add(textField_39);
+		
+		textField_40 = new JTextField();
+		textField_40.setColumns(10);
+		textField_40.setBounds(489, 35, 86, 20);
+		panel_7.add(textField_40);
+		
+		textField_41 = new JTextField();
+		textField_41.setColumns(10);
+		textField_41.setBounds(489, 12, 86, 20);
+		panel_7.add(textField_41);
+		
 		// Marbles
 		panel_8 = new JPanel();
 		panel_8.setLayout(null);
@@ -1061,49 +1133,76 @@ public class GUI {
 		panelMultinomial.add(panel_8);
 		
 		lblSelectedGoldMarbles = new JLabel("Probability of Gold Marbles:");
-		lblSelectedGoldMarbles.setBounds(10, 28, 210, 14);
+		lblSelectedGoldMarbles.setBounds(10, 20, 210, 14);
 		panel_8.add(lblSelectedGoldMarbles);
 		
 		textField_18 = new JTextField();
 		textField_18.setColumns(10);
-		textField_18.setBounds(219, 28, 51, 20);
+		textField_18.setBounds(219, 20, 51, 20);
 		panel_8.add(textField_18);
 		
 		lblSelectedSilverMarbles = new JLabel("Probability of Silver Marbles:");
-		lblSelectedSilverMarbles.setBounds(10, 54, 210, 14);
+		lblSelectedSilverMarbles.setBounds(10, 46, 210, 14);
 		panel_8.add(lblSelectedSilverMarbles);
 		
 		textField_19 = new JTextField();
 		textField_19.setColumns(10);
-		textField_19.setBounds(219, 54, 51, 20);
+		textField_19.setBounds(219, 46, 51, 20);
 		panel_8.add(textField_19);
 		
 		lblSelectedBronzeMarbles = new JLabel("Probability of Bronze Marbles:");
-		lblSelectedBronzeMarbles.setBounds(10, 80, 210, 14);
+		lblSelectedBronzeMarbles.setBounds(10, 72, 210, 14);
 		panel_8.add(lblSelectedBronzeMarbles);
 		
 		textField_22 = new JTextField();
 		textField_22.setColumns(10);
-		textField_22.setBounds(219, 80, 51, 20);
+		textField_22.setBounds(219, 72, 51, 20);
 		panel_8.add(textField_22);
 		
 		lblNumberOfKexperiments_2 = new JLabel("Number of k-experiments:");
-		lblNumberOfKexperiments_2.setBounds(295, 31, 156, 14);
+		lblNumberOfKexperiments_2.setBounds(67, 109, 156, 14);
 		panel_8.add(lblNumberOfKexperiments_2);
 		
 		textField_25 = new JTextField();
 		textField_25.setColumns(10);
-		textField_25.setBounds(461, 25, 73, 20);
+		textField_25.setBounds(233, 103, 73, 20);
 		panel_8.add(textField_25);
 		
 		label_19 = new JLabel("Number of Trials:");
-		label_19.setBounds(295, 54, 156, 14);
+		label_19.setBounds(323, 106, 156, 14);
 		panel_8.add(label_19);
 		
 		textField_26 = new JTextField();
 		textField_26.setColumns(10);
-		textField_26.setBounds(461, 51, 73, 20);
+		textField_26.setBounds(489, 103, 73, 20);
 		panel_8.add(textField_26);
+		
+		textField_35 = new JTextField();
+		textField_35.setColumns(10);
+		textField_35.setBounds(522, 72, 51, 20);
+		panel_8.add(textField_35);
+		
+		lblNumberOfSelected_6 = new JLabel("Number of Selected Bronze Marbles:");
+		lblNumberOfSelected_6.setBounds(302, 72, 222, 14);
+		panel_8.add(lblNumberOfSelected_6);
+		
+		lblNumberOfSelected_5 = new JLabel("Number of Selected Silver Marbles:");
+		lblNumberOfSelected_5.setBounds(302, 46, 222, 14);
+		panel_8.add(lblNumberOfSelected_5);
+		
+		lblNumberOfSelected_4 = new JLabel("Number of Selected Gold Marbles:");
+		lblNumberOfSelected_4.setBounds(302, 20, 222, 14);
+		panel_8.add(lblNumberOfSelected_4);
+		
+		textField_36 = new JTextField();
+		textField_36.setColumns(10);
+		textField_36.setBounds(522, 20, 51, 20);
+		panel_8.add(textField_36);
+		
+		textField_37 = new JTextField();
+		textField_37.setColumns(10);
+		textField_37.setBounds(522, 46, 51, 20);
+		panel_8.add(textField_37);
 		
 		button_2 = new JButton("Execute");
 		button_2.setBounds(151, 445, 89, 23);
@@ -1114,9 +1213,23 @@ public class GUI {
 				  {
 					  double k = Double.parseDouble(textField_27.getText());
 					  double size = Double.parseDouble(textField_28.getText());
+					  double probSelectedHeads = Double.parseDouble(textField_42.getText());
+					  double probSelectedTails = Double.parseDouble(textField_43.getText());
 					  double[] prob = {0.5, 0.5};
+					  ArrayList<Double> listSelectedProb = new ArrayList<Double>(0);
 					  
-					  controller.getMultinomial(k, size, prob);
+					  if(probSelectedHeads != 0)
+						  listSelectedProb.add(probSelectedHeads);
+					  if(probSelectedTails != 0)
+						  listSelectedProb.add(probSelectedTails);
+					  
+					  double[] probSelected = new double[listSelectedProb.size()];
+					  for(int i = 0; i < listSelectedProb.size(); i++)
+					  {
+						  probSelected[i] = listSelectedProb.get(i);
+					  }
+					  
+					  controller.getMultinomial(k, size, prob, probSelected);
 				  }
 				  else if(rdbtnDeckOfCards.isSelected())
 				  {
@@ -1126,7 +1239,12 @@ public class GUI {
 					  double probGroup2 = Double.parseDouble(textField_13.getText());
 					  double probGroup3 = Double.parseDouble(textField_14.getText());
 					  double probGroup4 = Double.parseDouble(textField_20.getText());
+					  double probSelectedGroup1 = Double.parseDouble(textField_41.getText());
+					  double probSelectedGroup2 = Double.parseDouble(textField_40.getText());
+					  double probSelectedGroup3 = Double.parseDouble(textField_39.getText());
+					  double probSelectedGroup4 = Double.parseDouble(textField_38.getText());
 					  ArrayList<Double> listProb = new ArrayList<Double>(0);
+					  ArrayList<Double> listSelectedProb = new ArrayList<Double>(0);
 					  
 					  if(probGroup1 != 0)
 						  listProb.add(probGroup1);
@@ -1137,13 +1255,24 @@ public class GUI {
 					  if(probGroup4 != 0)
 						  listProb.add(probGroup4);
 					  
+					  if(probSelectedGroup1 != 0)
+						  listSelectedProb.add(probSelectedGroup1);
+					  if(probSelectedGroup2 != 0)
+						  listSelectedProb.add(probSelectedGroup2);
+					  if(probSelectedGroup3 != 0)
+						  listSelectedProb.add(probSelectedGroup3);
+					  if(probSelectedGroup4 != 0)
+						  listSelectedProb.add(probSelectedGroup4);
+					  
 					  double[] prob = new double[listProb.size()];
+					  double[] probSelected = new double[listSelectedProb.size()];
 					  for(int i = 0; i < listProb.size(); i++)
 					  {
 						  prob[i] = listProb.get(i);
+						  probSelected[i] = listSelectedProb.get(i);
 					  }
 					  
-					  controller.getMultinomial(k, size, prob);
+					  controller.getMultinomial(k, size, prob, probSelected);
 				  }
 				  else if(rdbtnMarbles.isSelected())
 				  {
@@ -1152,7 +1281,11 @@ public class GUI {
 					  double probGold = Double.parseDouble(textField_18.getText());
 					  double probSilver = Double.parseDouble(textField_19.getText());
 					  double probBronze = Double.parseDouble(textField_22.getText());
+					  double probSelectedGold = Double.parseDouble(textField_36.getText());
+					  double probSelectedSilver = Double.parseDouble(textField_37.getText());
+					  double probSelectedBronze = Double.parseDouble(textField_35.getText());
 					  ArrayList<Double> listProb = new ArrayList<Double>(0);
+					  ArrayList<Double> listSelectedProb = new ArrayList<Double>(0);
 					  
 					  if(probGold != 0)
 						  listProb.add(probGold);
@@ -1161,13 +1294,22 @@ public class GUI {
 					  if(probBronze != 0)
 						  listProb.add(probBronze);
 					  
+					  if(probSelectedGold != 0)
+						  listSelectedProb.add(probSelectedGold);
+					  if(probSelectedSilver != 0)
+						  listSelectedProb.add(probSelectedSilver);
+					  if(probSelectedBronze != 0)
+						  listSelectedProb.add(probSelectedBronze);
+					  
 					  double[] prob = new double[listProb.size()];
+					  double[] probSelected = new double[listSelectedProb.size()];
 					  for(int i = 0; i < listProb.size(); i++)
 					  {
 						  prob[i] = listProb.get(i);
+						  probSelected[i] = listSelectedProb.get(i);
 					  }
 					  
-					  controller.getMultinomial(k, size, prob);
+					  controller.getMultinomial(k, size, prob, probSelected);
 				  }
 			  } 
 		});

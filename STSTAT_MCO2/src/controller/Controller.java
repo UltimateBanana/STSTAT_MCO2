@@ -14,12 +14,12 @@ public class Controller {
 	Multinomial multinomial;
 	WriteFile fileWriter;
 	
-	int indexTextFile;
+	String indexTextFile;
 	String log;
 	
 	public Controller(){
 		log = "";
-		indexTextFile = 1;
+		indexTextFile = "";
 	}
 	
 	// Binomial
@@ -31,9 +31,10 @@ public class Controller {
 		System.out.println(log);
 		System.out.println();
 		
-		fileWriter = new WriteFile(indexTextFile, log);
-		fileWriter.write();
-		indexTextFile++;
+		fileWriter = new WriteFile(log);
+		indexTextFile = fileWriter.write();
+		binomial.createGraphs(indexTextFile);
+		
 	}
 
 	// Negative Binomial
@@ -44,9 +45,9 @@ public class Controller {
 		System.out.println(log);
 		System.out.println();
 		
-		fileWriter = new WriteFile(indexTextFile, log);
-		fileWriter.write();
-		indexTextFile++;
+		fileWriter = new WriteFile(log);
+		indexTextFile = fileWriter.write();
+		negativeBinomial.createGraphs(indexTextFile);
 	}
 	
 	// Hypergeometric
@@ -58,23 +59,23 @@ public class Controller {
 		System.out.println(log);
 		System.out.println();
 		
-		fileWriter = new WriteFile(indexTextFile, log);
-		fileWriter.write();
-		indexTextFile++;
+		fileWriter = new WriteFile(log);
+		indexTextFile = fileWriter.write();
+		hypergeometric.createGraphs(indexTextFile);
 	}
 	
 	
 	// Multinomial
-	public void getMultinomial(double k, double size, double[] prob)
+	public void getMultinomial(double k, double size, double[] prob, double[] probSelected)
 	{
-		multinomial = new Multinomial(k,size,prob);
+		multinomial = new Multinomial(k,size,prob, probSelected);
 		log = multinomial.execute();
 		System.out.println(log);
 		System.out.println();
 		
-		fileWriter = new WriteFile(indexTextFile, log);
-		fileWriter.write();
-		indexTextFile++;
+		fileWriter = new WriteFile(log);
+		indexTextFile = fileWriter.write();
+		multinomial.createGraphs(indexTextFile);
 	}
 	
 }

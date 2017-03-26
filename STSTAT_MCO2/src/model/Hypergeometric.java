@@ -15,6 +15,8 @@ public class Hypergeometric {
 	String definitionOfSuccess;
 	String log;
 	
+	String indexTextFile;
+	
 	public Hypergeometric(double ex, double nn, double m, double n, double k, String definitionOfSuccess)
 	{
 		this.ex = ex;
@@ -24,6 +26,7 @@ public class Hypergeometric {
 		this.k = k;
 		this.definitionOfSuccess = definitionOfSuccess;
 		log = "Hypergeometric Distribution \r\n\r\n"; // for the text file
+		indexTextFile = "";
 	}
 	
 	public String execute()
@@ -60,20 +63,6 @@ public class Hypergeometric {
             double ideal = x.asDouble();
             log += "The ideal probability is "+ideal+"\r\n";
             
-            // Graphing for Actual Outcome Hypergeometric
-            String rCode = "";
-            rCode = "setwd(\"~/\")";//set directory
-			connection.eval(rCode);
-			rCode = "getwd()";
-			connection.eval(rCode);
-			rCode = "y<- "+"rhyper("+nn+","+m+","+n+","+k+")";
-			connection.eval(rCode);
-			rCode = "png(filename = \"ActualOutcomeHyperGeometric"+k+"Experiments"+nn+"nn"+m+"m"+n+"n.png\")";
-			connection.eval(rCode);
-			rCode = "barplot(table(y))";
-			connection.eval(rCode);				
-			rCode = "dev.off()";
-			connection.eval(rCode);
             
         } 
         catch (RserveException e) 
@@ -90,5 +79,56 @@ public class Hypergeometric {
         }
         
         return log;
+	}
+	
+	public void createGraphs(String indexTextFile)
+	{
+		RConnection connection = null;
+
+        try 
+        {
+            /* Create a connection to Rserve instance running
+             * on default port 6311
+             */
+            connection = new RConnection();
+
+            // Graphing for Actual Outcome Binomial
+            String rCode = "";
+    		rCode = "setwd(\"~/\")";//set directory
+    		connection.eval(rCode);
+    		rCode = "getwd()";
+    		connection.eval(rCode);
+    		rCode = "y<- "+"rhyper("+nn+","+m+","+n+","+k+")";
+    		connection.eval(rCode);
+    		rCode = "png(filename = \""+indexTextFile+"-Actual.png\")";
+    		connection.eval(rCode);
+    		rCode = "barplot(table(y))";
+    		connection.eval(rCode);				
+    		rCode = "dev.off()";
+    		connection.eval(rCode);
+    		
+    		// Graphing for Ideal Outcome Binomial
+    		rCode = "setwd(\"~/\")";//set directory
+    		connection.eval(rCode);
+    		rCode = "getwd()";
+    		connection.eval(rCode);
+    		rCode = "x<- "+"dhyper(0:"+nn+","+m+","+n+","+k+")";
+    		connection.eval(rCode);
+    		rCode = "png(filename = \""+indexTextFile+"-Ideal.png\")";
+    		connection.eval(rCode);
+    		rCode = "barplot(table(x))";
+    		connection.eval(rCode);				
+    		rCode = "dev.off()";
+    		connection.eval(rCode);
+        } 
+        catch (RserveException e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            connection.close();
+        }
+		
 	}
 }
