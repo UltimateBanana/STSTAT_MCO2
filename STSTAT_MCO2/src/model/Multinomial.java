@@ -153,11 +153,11 @@ public class Multinomial {
     		connection.eval(rCode);
     		rCode = "getwd()";
     		connection.eval(rCode);
-    		rCode = "x<- "+"dmultinom("+probabilitySelected+", size=NULL ,"+probability+")";
-    		connection.eval(rCode);
+//    		rCode = "x<- "+"dmultinom("+probabilitySelected+", size=NULL ,"+probability+")";
+//    		connection.eval(rCode);
     		rCode = "png(filename = \""+indexTextFile+"-Ideal.png\")";
     		connection.eval(rCode);
-    		rCode = "barplot(table(x))";
+    		rCode = "barplot(dmultinom("+probabilitySelected+", size=NULL ,"+probability+"))";
     		connection.eval(rCode);				
     		rCode = "dev.off()";
     		connection.eval(rCode);

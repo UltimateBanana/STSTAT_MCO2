@@ -112,11 +112,11 @@ public class Hypergeometric {
     		connection.eval(rCode);
     		rCode = "getwd()";
     		connection.eval(rCode);
-    		rCode = "x<- "+"dhyper(0:"+nn+","+m+","+n+","+k+")";
-    		connection.eval(rCode);
+//    		rCode = "x<- "+"dhyper(0:"+nn+","+m+","+n+","+k+")";
+//    		connection.eval(rCode);
     		rCode = "png(filename = \""+indexTextFile+"-Ideal.png\")";
     		connection.eval(rCode);
-    		rCode = "barplot(table(x))";
+    		rCode = "barplot(dhyper(0:"+nn+","+m+","+n+","+k+"))";
     		connection.eval(rCode);				
     		rCode = "dev.off()";
     		connection.eval(rCode);

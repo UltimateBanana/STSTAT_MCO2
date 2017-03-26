@@ -108,11 +108,11 @@ public class NegativeBinomial {
     		connection.eval(rCode);
     		rCode = "getwd()";
     		connection.eval(rCode);
-    		rCode = "x<- "+"dnbinom(0:"+  k + "," + size + "," + prob +")";
-    		connection.eval(rCode);
+//    		rCode = "x<- "+"dnbinom(0:"+  k + "," + size + "," + prob +")";
+//    		connection.eval(rCode);
     		rCode = "png(filename = \""+indexTextFile+"-Ideal.png\")";
     		connection.eval(rCode);
-    		rCode = "barplot(table(x))";
+    		rCode = "barplot(dnbinom(0:"+  k + "," + size + "," + prob +"))";
     		connection.eval(rCode);				
     		rCode = "dev.off()";
     		connection.eval(rCode);
