@@ -50,10 +50,10 @@ public class Controller {
 	}
 	
 	// Hypergeometric
-	public void getHypergeometric(double nn, double m, double n, double k, String definitionOfSuccess)
+	public void getHypergeometric(double x, double nn, double m, double n, double k, String definitionOfSuccess)
 	{
 		// parameter nn is k-experiments (based from specs)
-		hypergeometric = new Hypergeometric(nn,m,n,k,definitionOfSuccess);
+		hypergeometric = new Hypergeometric(x, nn,m,n,k,definitionOfSuccess);
 		log = hypergeometric.execute();
 		System.out.println(log);
 		System.out.println();

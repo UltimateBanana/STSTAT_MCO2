@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+import javax.swing.JFileChooser;
+
+
 public class WriteFile {
 	
 	int indexTextFile;
@@ -20,10 +23,16 @@ public class WriteFile {
 	public void write()
 	{
 		BufferedWriter writer = null;
+		JFileChooser  chooser= new JFileChooser();
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		chooser.showSaveDialog(null);
+
+		String path=chooser.getSelectedFile().getAbsolutePath();
+		String filename=chooser.getSelectedFile().getName();
 
 		try 
 		{
-		    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(indexTextFile + ".txt"), "utf-8"));
+		    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename + ".txt"), "utf-8"));
 		    writer.write(log);
 		    writer.close();
 		} catch (IOException e) 

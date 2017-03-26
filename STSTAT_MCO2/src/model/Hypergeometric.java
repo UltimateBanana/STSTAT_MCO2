@@ -7,6 +7,7 @@ import org.rosuda.REngine.Rserve.RserveException;
 
 public class Hypergeometric {
 	// Variables for the input
+	double ex;
 	double nn;
 	double m;
 	double n;
@@ -14,9 +15,9 @@ public class Hypergeometric {
 	String definitionOfSuccess;
 	String log;
 	
-	public Hypergeometric(double nn, double m, double n, double k, String definitionOfSuccess)
+	public Hypergeometric(double ex, double nn, double m, double n, double k, String definitionOfSuccess)
 	{
-		
+		this.ex = ex;
 		this.nn = nn;
 		this.m= m;
 		this.n=n;
@@ -53,11 +54,11 @@ public class Hypergeometric {
             log += "The average successes is "+average+"\r\n";
             
             //Actual and Ideal Probabilities
-//            double actual = ;
-//            log += "The actual probability is "+actual;
-//            x = connection.eval("phyper("+nn+","+m+","+n+","+k+")");
-//            double ideal = x.asDouble();
-//            log += "The ideal probability is "+ideal;
+            double actual = 1-(average/(m+n));
+            log += "The actual probability is "+actual+"\r\n";
+            x = connection.eval("phyper("+ex+","+m+","+n+","+k+")");
+            double ideal = x.asDouble();
+            log += "The ideal probability is "+ideal+"\r\n";
             
             // Graphing for Actual Outcome Hypergeometric
             String rCode = "";
